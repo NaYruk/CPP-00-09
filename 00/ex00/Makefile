@@ -12,14 +12,17 @@ NAME = megaphone
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "\n$(PROGRESS) Compiled in progress $(PROGRESS)...\n"
 	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
-	@echo "$(SUCCESS) Compiling is finished $(SUCCESS) !!!"
 
 clean:
 	@echo "\n$(BROOM) Cleaning !!! $(BROOM)\n"
-	@rm $(NAME)
+	@rm -rf $(OBJ)
+
+fclean:
+	@echo "\n$(BROOM) Cleaning !!! $(BROOM)\n"
+	@rm -rf $(OBJ)
+	@rm -rf $(NAME)
 
 re: fclean all
 
-.PHONY: NAME all clean re
+.PHONY: NAME all clean fclean re

@@ -12,9 +12,7 @@ NAME = PhoneBook
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@echo "\n$(PROGRESS) Compiled in progress $(PROGRESS)...\n"
 	@$(CC) $(FLAGS) $(OBJ) -o $(NAME)
-	@echo "$(SUCCESS) Compiling is finished $(SUCCESS) !!!"
 
 clean:
 	@echo "\n$(BROOM) Cleaning !!! $(BROOM)\n"

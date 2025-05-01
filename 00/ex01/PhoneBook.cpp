@@ -65,17 +65,25 @@ void    PhoneBook::print_PhoneBook() const
 
 
     std::string str;
+    int nbr;
+
     while (true)
     {
         std::cout << "👀 What Contact would you want to See ? 👀" << std::endl;
         std::getline(std::cin, str);
         if (str.compare("1") >= 0 && str.compare("8") <= 0 && str.length() == 1)
-            break ;
+        {
+            nbr = std::stoi(str);
+            if (nbr > this->nbr_contact)
+                std::cout << "Contact is not create !!! ❌" << std::endl;
+            else
+                break;
+        }
         else
             std::cout << "Invalid Index !!! ❌" << std::endl;
     }
     std::cout << std::endl;
-    int nbr = std::stoi(str) - 1;
+    nbr = std::stoi(str) - 1;
 
     std::cout << "-------------------------------------------------------------------" << std::endl;
     std::cout << "Contact " << str << ":" << std::endl;
