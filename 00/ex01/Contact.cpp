@@ -18,7 +18,7 @@ void Contact::create_new_contact()
     std::cout << "📞 Creation of a new Contact ! 📞" << std::endl;
     std::cout << std::endl;
     while (str.empty())
-    { 
+    {
         std::cout << "First Name : ";
         std::getline(std::cin, str);
         this->_First_Name = str;
