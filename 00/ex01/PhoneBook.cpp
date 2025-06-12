@@ -71,6 +71,11 @@ void    PhoneBook::print_PhoneBook() const
     {
         std::cout << "👀 What Contact would you want to See ? 👀" << std::endl;
         std::getline(std::cin, str);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+			std::exit(0);
+        }
         if (str.compare("1") >= 0 && str.compare("8") <= 0 && str.length() == 1)
         {
             nbr = std::stoi(str);

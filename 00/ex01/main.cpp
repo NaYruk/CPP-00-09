@@ -17,7 +17,12 @@ int main()
             std::cout << std::endl;
         std::cout << "-------------------------------------------------------------------" << std::endl;
 
-        if (str.compare("ADD") == 0)
+        if (std::cin.eof())
+		{
+			std::cout << std::endl;
+			return (0);
+		}
+        else if (str.compare("ADD") == 0)
         {
             P_B.add_new_contact();
         }
@@ -25,11 +30,6 @@ int main()
         {
             P_B.print_contact();
         }
-        else if (std::cin.eof())
-		{
-			std::cout << std::endl;
-			return (0);
-		}
     }
     return 0;
 }

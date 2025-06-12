@@ -21,6 +21,11 @@ void Contact::create_new_contact()
     {
         std::cout << "First Name : ";
         std::getline(std::cin, str);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+			std::exit(0);
+        }
         this->_First_Name = str;
         std::cout << std::endl;
     }
@@ -29,6 +34,11 @@ void Contact::create_new_contact()
     { 
         std::cout << "Last Name : ";
         std::getline(std::cin, str);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+			std::exit(0);
+        }
         this->_Last_Name = str;
         std::cout << std::endl;
     }
@@ -37,6 +47,11 @@ void Contact::create_new_contact()
     { 
         std::cout << "Nickname : ";
         std::getline(std::cin, str);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+			std::exit(0);
+        }
         this->_Nickname = str;
         std::cout << std::endl;
     }
@@ -45,6 +60,11 @@ void Contact::create_new_contact()
     { 
         std::cout << "Phone Number : ";
         std::getline(std::cin, str);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+			std::exit(0);
+        }
         this->_Phone_Number = str;
         std::cout << std::endl;
     }
@@ -53,6 +73,11 @@ void Contact::create_new_contact()
     { 
         std::cout << "Darkest Secret : ";
         std::getline(std::cin, str);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+			std::exit(0);
+        }
         this->_Darkest_Secret = str;
         std::cout << std::endl;
     }
