@@ -5,27 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/11 15:01:50 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/06/17 04:45:27 by mmilliot         ###   ########.fr       */
+/*   Created: 2025/06/17 03:53:35 by mmilliot          #+#    #+#             */
+/*   Updated: 2025/06/17 04:15:41 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./Zombie.hpp"
+#include "./Harl.hpp"
 
-int	main()
+int main()
 {
-	Zombie *new_zombie = newZombie("Jojo");
-	new_zombie->announce();
-
-	randomChump("random_zombie1");
-	randomChump("random_zombie2");
-	randomChump("random_zombie3");
-
-	Zombie *new_zombie2 = newZombie("Bernard");
-	new_zombie->announce();
-
-	delete(new_zombie);
-	delete(new_zombie2);
+	Harl harl;
+	
+	harl.complain("DEBUG");
+	harl.complain("INFO");
+	harl.complain("WARNING");
+	harl.complain("ERROR");
+	
+	harl.complain("ERROR_LEVEL");
+	harl.complain("");
+	harl.complain("ahfawhfawf");
 	
 	return 0;
 }

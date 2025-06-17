@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 17:07:54 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/06/15 22:23:11 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/06/16 22:23:50 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./Weapon.hpp"
 
-Weapon::Weapon()
+Weapon::Weapon(std::string type) : type(type)
 {
     return ;
 }

@@ -4,10 +4,10 @@ SUCCESS = \033[32m✔\033[0m
 
 CC = g++
 FLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = ./main.cpp ./Weapon.cpp ./HumanA.cpp ./HumanB.cpp
+SRC = ./main.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
-NAME =  Unnecessary_violence
+NAME =  Sed_is_for_losers
 
 all: $(NAME)
 

@@ -4,10 +4,10 @@ SUCCESS = \033[32m✔\033[0m
 
 CC = g++
 FLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = ./main.cpp ./Weapon.cpp ./HumanA.cpp ./HumanB.cpp
+SRC = ./main.cpp ./Harl.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
-NAME =  Unnecessary_violence
+NAME =  harlFilter
 
 all: $(NAME)
 

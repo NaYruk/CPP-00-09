@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 17:22:48 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/06/11 17:41:21 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/06/17 03:27:42 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 Zombie	*zombieHorde(int N, std::string name)
 {
 	if (N <= 0){
-		std::cout << "Number of Zombies is <= 0 !" << std::endl;
+		std::cerr << "Number of Zombies is <= 0 !" << std::endl;
 		return (NULL);
 	}
 	

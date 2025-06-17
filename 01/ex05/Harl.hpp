@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/11 15:01:50 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/06/17 04:45:27 by mmilliot         ###   ########.fr       */
+/*   Created: 2025/06/17 03:40:20 by mmilliot          #+#    #+#             */
+/*   Updated: 2025/06/17 03:54:44 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./Zombie.hpp"
+#include <iostream>
 
-int	main()
+class Harl
 {
-	Zombie *new_zombie = newZombie("Jojo");
-	new_zombie->announce();
-
-	randomChump("random_zombie1");
-	randomChump("random_zombie2");
-	randomChump("random_zombie3");
-
-	Zombie *new_zombie2 = newZombie("Bernard");
-	new_zombie->announce();
-
-	delete(new_zombie);
-	delete(new_zombie2);
-	
-	return 0;
-}
+	private:
+		void	debug(void);
+		void	info(void);
+		void	warning(void);
+		void	error(void);
+		
+	public:
+		Harl();
+		~Harl();
+		void	complain(std::string level);
+};
