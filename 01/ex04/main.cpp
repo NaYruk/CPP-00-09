@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 23:56:53 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/06/17 04:50:10 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/06/18 10:02:22 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	replace_string_one(const std::string str_one, const std::string str_two, st
 	{
 		first_part = line.substr(0, pos);
 		second_part = line.substr(pos + str_one.length(), line.length() - (pos + str_one.length()));
-		
+
 		pos += str_two.length();
 		line = first_part + str_two + second_part;
 	}
@@ -63,7 +63,7 @@ int main(int argc, char **argv)
 		else
 			file_out << line;
 	}
-	
+
 	file_in.close();
 	file_out.close();
 	return 0;
