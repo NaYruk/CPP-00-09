@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/10 17:19:45 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:29:52 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ class Fixed
     public:
         Fixed( void );
         Fixed( const int nbr );
-        Fixed( const float nbr );
+        Fixed( const float nbr);
         Fixed( const Fixed &copy );
-        Fixed &operator=( const Fixed &copy );
+        Fixed &operator=( const Fixed &copy);
         ~Fixed( void );
 
 		int		getRawBits( void ) const;
@@ -57,7 +57,7 @@ class Fixed
 
     private:
         int                 _NbrValue;
-        static const int    _NbrBits = 8;
+        static const int    _NbrBits = 16;
 };
 
 std::ostream &operator<<(std::ostream &flux, const Fixed &fixed);

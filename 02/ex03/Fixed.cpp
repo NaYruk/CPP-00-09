@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/10 16:41:20 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/06/19 18:51:07 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 // Basic Constructor for initialize the value of the fixed-point number to 0
 Fixed::Fixed( void ) : _NbrValue(0)
 {
-    std::cout << "Default constructor called" << std::endl;
     return ;
 }
 
@@ -26,7 +25,6 @@ Fixed::Fixed( void ) : _NbrValue(0)
 // (this is for _NbrBits = 8)
 Fixed::Fixed( const int nbr )
 {
-    std::cout << "Int constructor called" << std::endl;
     this->_NbrValue = nbr * (1 << this->_NbrBits);
     return ;
 }
@@ -38,7 +36,6 @@ Fixed::Fixed( const int nbr )
 // (this is for _NbrBits = 8)
 Fixed::Fixed( const float nbr )
 {
-    std::cout << "Float constructor called" << std::endl;
     this->_NbrValue = roundf(nbr * (1 << this->_NbrBits));
     return ;
 }
@@ -46,7 +43,6 @@ Fixed::Fixed( const float nbr )
 // Overload Constructor for create a constructor of copy
 Fixed::Fixed( const Fixed &copy)
 {
-    std::cout << "Copy constructor called" << std::endl;
     *this = copy;
     return ;
 }
@@ -54,7 +50,6 @@ Fixed::Fixed( const Fixed &copy)
 // Overload of operator, = for copy an Fixed class
 Fixed &Fixed::operator=( const Fixed &copy)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
     if (this != &copy)
     {
         this->_NbrValue = copy.getRawBits();
@@ -69,9 +64,7 @@ Fixed &Fixed::operator=( const Fixed &copy)
 // (this is for _NbrBits = 8)
 std::ostream &operator<<(std::ostream &flux, const Fixed &fixed)
 {
-    float convert_float = static_cast<float>(fixed.getRawBits()) / (1 << 8);
-    
-    flux << convert_float;
+    flux << fixed.toFloat();
     return (flux);
 }
 
@@ -79,7 +72,6 @@ std::ostream &operator<<(std::ostream &flux, const Fixed &fixed)
 // Destructor of the Fixed Class.
 Fixed::~Fixed( void )
 {
-    std::cout << "Destructor called" << std::endl;
     return ;
 }
 
@@ -97,20 +89,150 @@ void Fixed::setRawBits( int const raw )
 }
 
 
+
 // Function for convert a Fixed-point number to a Float.
 float   Fixed::toFloat( void ) const
 {
-    float   result;
-
-    result = static_cast<float>(this->_NbrValue) / (1 << this->_NbrBits);
-    return (result);
+    return (static_cast<float>(this->_NbrValue) / (1 << this->_NbrBits));
 }
 
 // Function for convert a Fixed-point number to an Int.
 int     Fixed::toInt( void ) const
 {
-    int     result;
+    return (this->_NbrValue / (1 << this->_NbrBits));
+}
 
-    result = static_cast<int>(this->_NbrValue) / (1 << this->_NbrBits);
-    return (result);
+
+// Overload of > operator
+bool    Fixed::operator>( const Fixed &other) const
+{
+    return (this->toFloat() > other.toFloat());
+}
+
+// Overload of < operator
+bool    Fixed::operator<( const Fixed &other) const
+{
+    return (this->toFloat() < other.toFloat());
+}
+
+// Overload of >= operator
+bool    Fixed::operator>=( const Fixed &other) const
+{
+    return (this->toFloat() >= other.toFloat());
+}
+
+// Overload of <= operator
+bool    Fixed::operator<=( const Fixed &other) const
+{
+    return (this->toFloat() <= other.toFloat());
+}
+
+// Overload of == operator
+bool    Fixed::operator==( const Fixed &other) const
+{
+    return (this->toFloat() == other.toFloat());
+}
+
+// Overload of != operator
+bool    Fixed::operator!=( const Fixed &other) const
+{
+    return (this->toFloat() != other.toFloat());
+}
+
+
+
+// Overload of + operator
+float     Fixed::operator+( const Fixed &other) const
+{
+   return (this->toFloat() + other.toFloat());
+}
+
+// Overload of - operator
+float     Fixed::operator-( const Fixed &other) const
+{
+    return (this->toFloat() - other.toFloat());
+}
+
+// Overload of * operator
+float     Fixed::operator*( const Fixed &other) const
+{
+    return (this->toFloat() * other.toFloat());
+}
+
+// Overload of / operator
+float     Fixed::operator/( const Fixed &other) const
+{
+    return (this->toFloat() / other.toFloat());
+}
+
+
+
+// Overload of ++ prefix operator
+Fixed   &Fixed::operator++( void )
+{
+    ++(this->_NbrValue);
+    return (*this);
+}
+
+// Overload of ++ suffix operator
+Fixed   Fixed::operator++( int Nbr )
+{
+    Fixed temp(*this);
+    
+    ++(this->_NbrValue);
+    return (temp);
+}
+
+// Overload of -- prefix operator
+Fixed   &Fixed::operator--( void )
+{
+    --(this->_NbrValue);
+    return (*this);
+}
+
+// Overload of ++ suffix operator
+Fixed   Fixed::operator--( int Nbr )
+{
+    Fixed temp(*this);
+    
+    --(this->_NbrValue);
+    return (temp);
+}
+
+
+
+// Overload of Function min (return the minimum number)
+Fixed Fixed::min(Fixed &nbr1, Fixed &nbr2)
+{
+    if (nbr1 < nbr2)
+        return (nbr1);
+    else
+        return (nbr2);
+}
+
+// Overload of Function min (return the minimum number)
+Fixed Fixed::min(const Fixed &nbr1, const Fixed &nbr2)
+{
+    if (nbr1 < nbr2)
+        return (nbr1);
+    else
+        return (nbr2);
+}
+
+// Overload of Function max (return the max number)
+Fixed Fixed::max(Fixed &nbr1, Fixed &nbr2)
+{
+    if (nbr1 > nbr2)
+        return (nbr1);
+    else
+        return (nbr2);
+}
+
+// Overload of Function max (return the max number)
+Fixed Fixed::max(const Fixed &nbr1, const Fixed &nbr2)
+{
+    if (nbr1 > nbr2)
+        return (nbr1);
+    else
+        return (nbr2);
 }
