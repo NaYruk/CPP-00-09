@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/11 20:56:03 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:47:14 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,3 @@ void    ScavTrap::guardGate( void )
     std::cout << "🪖 IM ScavTrap AND MY NAME IS : " << this->_name << " AND NOW IM IN GATE KEEPER MODE 🪖" << std::endl;
     return ;
 }
-
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/10 19:29:52 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/16 08:13:29 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ class Fixed
 
     private:
         int                 _NbrValue;
-        static const int    _NbrBits = 16;
+        static const int    _NbrBits = 8;
 };
 
 std::ostream &operator<<(std::ostream &flux, const Fixed &fixed);

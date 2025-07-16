@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 16:44:49 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:45:05 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int main( void )
 {
-   {
+   /*{
         std::cout << std::endl;
         std::cout << "SCAV TRAP TEST" << std::endl;
         std::cout << std::endl;
@@ -92,7 +92,7 @@ int main( void )
     std::cout << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-
+*/
     {
         std::cout << "DIAMOND TRAP TEST" << std::endl;
         std::cout << std::endl;
@@ -108,7 +108,6 @@ int main( void )
         
         std::cout << std::endl;
 
-        diamandOne.getAllData();
         diamandOne.whoAmI();
 
         std::cout << std::endl;

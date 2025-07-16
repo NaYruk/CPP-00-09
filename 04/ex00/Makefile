@@ -2,7 +2,7 @@ PROGRESS = \033[33m⏳\033[0m
 BROOM = \033[33m🧹\033[0m
 SUCCESS = \033[32m✔\033[0m
 
-CC = g++
+CC = c++
 INCLUDES = -I./includes
 FLAGS = -Wall -Wextra -Werror $(INCLUDES) -std=c++98
 SRC = ./sources/main.cpp ./sources/Animal.cpp ./sources/Dog.cpp ./sources/Cat.cpp ./sources/WrongCat.cpp ./sources/WrongAnimal.cpp

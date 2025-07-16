@@ -46,6 +46,18 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
-    }
+        "typeinfo": "cpp",
+        "optional": "cpp",
+        "ranges": "cpp",
+        "span": "cpp"
+    },
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./04",
+        "-p",
+        "*test.py"
+    ],
+    "python.testing.pytestEnabled": false,
+    "python.testing.unittestEnabled": true
 }

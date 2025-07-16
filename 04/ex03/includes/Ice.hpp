@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 15:43:35 by mmilliot         ###   ########.fr       */
+/*   Created: 2025/07/16 09:49:28 by mmilliot          #+#    #+#             */
+/*   Updated: 2025/07/16 12:56:06 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "./ClapTrap.hpp"
+#include "./AMateria.hpp"
 
-class FragTrap : virtual public ClapTrap
+class Ice : public AMateria
 {
-    public:
-        FragTrap( void );
-        FragTrap( const std::string& name );
-        FragTrap( const FragTrap& copy );
-        FragTrap& operator=( const FragTrap& copy );
-        virtual ~FragTrap( void );
-
-        void    highFivesGuys();
+	public:
+		Ice( void );
+		Ice( const Ice& copy);
+		Ice& operator=( const Ice& copy );
+		~Ice( void );
+		
+		Ice* clone() const;
+		void	use( ICharacter& target );
 };

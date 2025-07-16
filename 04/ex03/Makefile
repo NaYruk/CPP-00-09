@@ -3,11 +3,12 @@ BROOM = \033[33m🧹\033[0m
 SUCCESS = \033[32m✔\033[0m
 
 CC = c++
-FLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = ./main.cpp ./ClapTrap.cpp ./ScavTrap.cpp
+INCLUDES = -I./includes
+FLAGS = -Wall -Wextra -Werror $(INCLUDES) -std=c++98
+SRC = ./sources/main.cpp ./sources/AMateria.cpp ./sources/Character.cpp ./sources/Cure.cpp ./sources/Ice.cpp ./sources/MateriaSource.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
-NAME = ScavTrappppppppppp
+NAME = Interface
 all: $(NAME)
 
 $(NAME): $(OBJ)

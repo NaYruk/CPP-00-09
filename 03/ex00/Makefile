@@ -2,7 +2,7 @@ PROGRESS = \033[33m⏳\033[0m
 BROOM = \033[33m🧹\033[0m
 SUCCESS = \033[32m✔\033[0m
 
-CC = g++
+CC = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = ./main.cpp ./ClapTrap.cpp
 

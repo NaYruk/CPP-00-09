@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 16:16:34 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/16 19:36:02 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 FragTrap::FragTrap( void ) : ClapTrap()
 {
     std::cout << "FragTrap default constructor ✅ called, IM WARN YOU IM NOT SCAVTRAP OR CLAPTRAP IM UNIQUE IN THIS WORLD !" << std::endl;
-    this->_HitPoints = 300;
+    this->_HitPoints = 100;
     this->_EnergyPoints = 100;
     this->_AttackDamage = 30;
     return ;
@@ -24,7 +24,7 @@ FragTrap::FragTrap( void ) : ClapTrap()
 FragTrap::FragTrap( const std::string& name ) : ClapTrap(name)
 {
     std::cout << "FragTrap Construtor ✅ with name : " << this->_name << " is called, IM WARN YOU IM NOT SCAVTRAP OR CLAPTRAP IM UNIQUE IN THIS WORLD !" << std::endl;
-    this->_HitPoints = 300;
+    this->_HitPoints = 100;
     this->_EnergyPoints = 100;
     this->_AttackDamage = 30;
     return ;  

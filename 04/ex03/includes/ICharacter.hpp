@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FragTrap.hpp                                       :+:      :+:    :+:   */
+/*   ICharacter.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 15:43:35 by mmilliot         ###   ########.fr       */
+/*   Created: 2025/07/16 10:09:04 by mmilliot          #+#    #+#             */
+/*   Updated: 2025/07/16 13:45:09 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "./ClapTrap.hpp"
+#include <iostream>
 
-class FragTrap : virtual public ClapTrap
+#include "./AMateria.hpp"
+
+class AMateria;
+
+class ICharacter
 {
-    public:
-        FragTrap( void );
-        FragTrap( const std::string& name );
-        FragTrap( const FragTrap& copy );
-        FragTrap& operator=( const FragTrap& copy );
-        virtual ~FragTrap( void );
-
-        void    highFivesGuys();
+	public:
+		virtual ~ICharacter() {}
+		virtual std::string const & getName() const = 0;
+		virtual void equip(AMateria* m) = 0;
+		virtual void unequip(int idx) = 0;
+		virtual void use(int idx, ICharacter& target) = 0;
 };

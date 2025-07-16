@@ -2,8 +2,8 @@ PROGRESS = \033[33m⏳\033[0m
 BROOM = \033[33m🧹\033[0m
 SUCCESS = \033[32m✔\033[0m
 
-CC = g++
-FLAGS = -Wall -Wextra -Werror -Wshadow -std=c++98
+CC = c++
+FLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = ./main.cpp ./ClapTrap.cpp ./ScavTrap.cpp ./FragTrap.cpp ./DiamondTrap.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
