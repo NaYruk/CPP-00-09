@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 18:38:20 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:24:33 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main( void )
         std::cout << std::endl;
         std::cout << "SOUND OF EACH ANIMALS :" << std::endl;
         
-        i->makeSound(); //will output the cat sound!
+        i->makeSound(); //will output the dog sound!
         j->makeSound();
         meta->makeSound();
         std::cout << std::endl;

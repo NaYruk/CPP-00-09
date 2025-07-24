@@ -8,7 +8,7 @@ FLAGS = -Wall -Wextra -Werror $(INCLUDES) -std=c++98
 SRC = ./sources/main.cpp ./sources/Animal.cpp ./sources/Dog.cpp ./sources/Cat.cpp ./sources/WrongCat.cpp ./sources/WrongAnimal.cpp ./sources/Brain.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
-NAME = Polymorphism
+NAME = Brain
 all: $(NAME)
 
 $(NAME): $(OBJ)

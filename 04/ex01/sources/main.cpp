@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 22:02:26 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:25:09 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int main( void )
 
     std::cout << std::endl;
     
-    delete j;//should not create a leak
+    delete j;
     delete i;
 
     std::cout << std::endl;

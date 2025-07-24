@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 09:22:08 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 13:45:36 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:37:46 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class AMateria
 		AMateria& operator=( const AMateria& copy );
 		~AMateria( void );
 		
-		std::string const & getType() const; //Return the materia type
+		std::string const & getType() const;
 
 		virtual	AMateria* clone() const = 0;
 		virtual void use(ICharacter& target);

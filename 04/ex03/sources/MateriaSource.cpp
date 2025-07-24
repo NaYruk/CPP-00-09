@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:06:05 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 19:06:43 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:56:01 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	MateriaSource::learnMateria(AMateria* to_copy)
 		{
 			if (this->_materia_sources[i] == NULL)
 			{
-				this->_materia_sources[i] = to_copy;
+				this->_materia_sources[i] = to_copy->clone();
+				delete to_copy;
 				return ;
 			}
 		}
