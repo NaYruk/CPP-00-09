@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 18:36:49 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:50:11 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/WrongCat.hpp"
 
-WrongCat::WrongCat( void ) : type("WrongCat")
+WrongCat::WrongCat( void ) : WrongAnimal()
 {
     std::cout << "DEFAULT Constructor for WrongCat 🐈 class called" << std::endl;
+    this->type = "WrongCat";
     return ;
 }
 
-WrongCat::WrongCat( const WrongCat& copy )
+WrongCat::WrongCat( const WrongCat& copy ) : WrongAnimal()
 {
     std::cout << "COPY Constructor for WrongCat 🐈 class called" << std::endl;
-    *this = copy;
+    this->type = copy.type;
     return ;
 }
 
@@ -37,11 +38,6 @@ WrongCat::~WrongCat( void )
     return ;
 }
 
-
-std::string    WrongCat::getType( void ) const
-{
-    return this->type;
-}
 
 void           WrongCat::makeSound( void ) const
 {

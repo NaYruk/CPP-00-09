@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 10:11:57 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 11:31:57 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:26:53 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class Character : public ICharacter
 		Character( const std::string name );
 		Character( const Character& copy );
 		Character& operator=( const Character& copy );
-		~Character( void );
+		virtual ~Character( void );
 		
 		std::string const & getName() const;
 		void	equip(AMateria* m);

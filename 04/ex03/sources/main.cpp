@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:24:04 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/24 16:57:48 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:34:01 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,8 @@ int main()
 		me->unequip(2);
 		me->unequip(3);
 		me->unequip(0);
-		
-		ICharacter* Maxou = new Character("Melvin");
-		me->use(0, *Maxou);
-		tmp = src->createMateria("ice");
-		me->equip(tmp);
-		me->use(0, *Maxou);
-		
+
 		delete me;
-		delete Maxou;
 		delete src;
 	}
 	

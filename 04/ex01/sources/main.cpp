@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/24 16:25:09 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:43:08 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main( void )
     std::cout << "CREATION OF ARRAY WITH 5 Dogs AND 5 Cats";
     std::cout << std::endl;
 
-    const Animal* array_animals[10];
+    Animal* array_animals[10];
     
     for(int i = 0; i < 10; i++)
     {
@@ -30,6 +30,15 @@ int main( void )
         else
             array_animals[i] = new Dog();
     }
+
+    std::cout << std::endl << "PUT SOME IDEAS IN THE FIRST ANIMAL" << std::endl << std::endl;
+    for(int i = 0; i < 50; i++)
+    {
+        std::string idea = "Idea Number : " + std::to_string(i + 1);
+        array_animals[0]->addIdea(idea);
+    }
+    std::cout << "PRINT THE IDEAS" << std::endl;
+    array_animals[0]->showIdeas();
 
     std::cout << std::endl;
     std::cout << std::endl;
@@ -50,5 +59,33 @@ int main( void )
     for(int i = 0; i < 10; i++)
         delete array_animals[i];
 
+
+
+    std::cout << std::endl << "DEEP COPY TESTS" << std::endl;
+    std::cout << "Creating original cat with ideas..." << std::endl;
+    Cat original_cat;
+    original_cat.addIdea("Original idea 1");
+    original_cat.addIdea("Original idea 2");
+    original_cat.addIdea("Original idea 3");
+
+    std::cout << "Original cat ideas:" << std::endl;
+    original_cat.showIdeas();
+
+    std::cout << std::endl << "Creating a copy of cat..." << std::endl; 
+    Cat copied_cat = original_cat;
+    
+    std::cout << "Adding idea to original cat..." << std::endl;
+    original_cat.addIdea("New idea in original");
+    
+    std::cout << "Adding different idea to copied cat..." << std::endl;
+    copied_cat.addIdea("New idea in copy");
+    
+    std::cout << "\nOriginal cat ideas after modification:" << std::endl;
+    original_cat.showIdeas();
+    
+    std::cout << "\nCopied cat ideas after modification:" << std::endl;
+    copied_cat.showIdeas();
+    std::cout << std::endl;
+    
     return 0;
 }

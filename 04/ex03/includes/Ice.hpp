@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Ice.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 09:49:28 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 12:56:06 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:27:01 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class Ice : public AMateria
 		Ice( void );
 		Ice( const Ice& copy);
 		Ice& operator=( const Ice& copy );
-		~Ice( void );
+		virtual ~Ice( void );
 		
 		Ice* clone() const;
 		void	use( ICharacter& target );

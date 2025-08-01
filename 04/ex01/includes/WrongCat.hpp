@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   WrongCat.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 19:58:13 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:17:02 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 #include "./WrongAnimal.hpp"
-#include "./Brain.hpp"
 
 class WrongCat : public WrongAnimal
 {
@@ -23,10 +22,5 @@ class WrongCat : public WrongAnimal
         WrongCat& operator=( const WrongCat& copy );
         virtual ~WrongCat( void );
 
-        std::string    getType( void ) const;
-        void           makeSound( void ) const;   
-    
-    private:
-        std::string type;
-        Brain*      brain;
+        void           makeSound( void ) const;
 };

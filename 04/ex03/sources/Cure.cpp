@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cure.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 09:49:18 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 18:23:46 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:23:24 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 Cure::Cure( void ) : AMateria("cure") {}
 
-Cure::Cure( const Cure& copy )
+Cure::Cure( const Cure& copy ) : AMateria("cure")
 {
-	this->_materia_type = copy._materia_type;
+	(void)copy;
 	return ;
 }
 
 Cure& Cure::operator=( const Cure& copy )
 {
-	this->_materia_type = copy._materia_type;
+	(void)copy;
 	return *this;
 }
 

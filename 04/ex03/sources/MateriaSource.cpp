@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:06:05 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/24 16:56:01 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:25:53 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,34 @@ MateriaSource::MateriaSource( void )
 
 MateriaSource::MateriaSource( const MateriaSource& copy )
 {
-	*this = copy;
-	return ;
+    for (int i = 0; i < 4; i++)
+        this->_materia_sources[i] = NULL;
+    
+    for (int i = 0; i < 4; i++)
+    {
+        if (copy._materia_sources[i] != NULL)
+            this->_materia_sources[i] = copy._materia_sources[i]->clone();
+    }
 }
 
 MateriaSource& MateriaSource::operator=( const MateriaSource& copy )
 {
-	for (int i = 0; i < 4; i++)
+	if (this != &copy)
 	{
-		if (this->_materia_sources[i] != NULL)
-			delete this->_materia_sources[i];
-	}
-	
-	for (int i = 0; i < 4; i++)
-		this->_materia_sources[i] = copy._materia_sources[i];
+		for (int i = 0; i < 4; i++)
+		{
+			if (this->_materia_sources[i] != NULL)
+				delete this->_materia_sources[i];
+		}
 		
+		for (int i = 0; i < 4; i++)
+		{
+			if (copy._materia_sources[i] != NULL)
+				this->_materia_sources[i] = copy._materia_sources[i]->clone();
+			else
+				this->_materia_sources[i] = NULL;
+		}
+	}
 	return *this;
 }
 

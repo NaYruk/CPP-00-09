@@ -21,7 +21,7 @@ WrongAnimal::WrongAnimal( void ) : type("Default WrongAnimal")
 WrongAnimal::WrongAnimal( const WrongAnimal& copy )
 {
     std::cout << "COPY Constructor for WrongAnimal class called" << std::endl;
-    *this = copy;
+    this->type = copy.type;
     return ;
 }
 

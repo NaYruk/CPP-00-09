@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 20:35:15 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:49:18 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/WrongCat.hpp"
 
-WrongCat::WrongCat( void ) : type("WrongCat"), brain(new Brain())
+WrongCat::WrongCat( void ) : WrongAnimal()
 {
     std::cout << "DEFAULT Constructor for WrongCat 🐈 class called" << std::endl;
+    this->type = "WrongCat";
     return ;
 }
 
-WrongCat::WrongCat( const WrongCat& copy )
+WrongCat::WrongCat( const WrongCat& copy ) : WrongAnimal()
 {
     std::cout << "COPY Constructor for WrongCat 🐈 class called" << std::endl;
-    this->brain = new Brain();
     this->type = copy.type;
     return ;
 }
@@ -35,15 +35,9 @@ WrongCat& WrongCat::operator=( const WrongCat& copy )
 WrongCat::~WrongCat( void )
 {
     std::cout << "DESTRUCTOR for WrongCat 🐈 class called" << std::endl;
-    delete this->brain;
     return ;
 }
 
-
-std::string    WrongCat::getType( void ) const
-{
-    return this->type;
-}
 
 void           WrongCat::makeSound( void ) const
 {

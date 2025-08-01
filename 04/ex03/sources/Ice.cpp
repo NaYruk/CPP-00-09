@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Ice.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 09:49:29 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 13:46:00 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:22:33 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 Ice::Ice( void ) : AMateria("ice") {}
 
-Ice::Ice( const Ice& copy )
+Ice::Ice( const Ice& copy ) : AMateria("ice")
 {
-	this->_materia_type = copy._materia_type;
+	(void)copy;
 	return ;
 }
 
 Ice& Ice::operator=( const Ice& copy )
 {
-	this->_materia_type = copy._materia_type;
+	(void)copy;
 	return *this;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 18:23:18 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:15:15 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,5 @@ class Dog : public Animal
         Dog& operator=( const Dog& copy );
         virtual ~Dog( void );
 
-        std::string    getType( void ) const;
-        void           makeSound( void ) const;    
-    
-    private:
-        std::string type;
+        void           makeSound( void ) const;
 };

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 09:22:08 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/24 16:37:46 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:26:47 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class AMateria
 		AMateria( std::string const & type );
 		AMateria( const AMateria& copy );
 		AMateria& operator=( const AMateria& copy );
-		~AMateria( void );
+		virtual ~AMateria( void );
 		
 		std::string const & getType() const;
 

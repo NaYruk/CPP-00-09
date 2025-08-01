@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 09:49:23 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 13:02:31 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:26:57 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ class Cure : public AMateria
 		Cure( void );
 		Cure( const Cure& copy);
 		Cure& operator=( const Cure& copy );
-		~Cure( void );
+		virtual ~Cure( void );
 		
 		Cure* clone() const;
 		void	use( ICharacter& target );

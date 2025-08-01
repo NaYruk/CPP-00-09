@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 18:30:47 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:49:51 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Dog.hpp"
 
-Dog::Dog( void ) : type("Dog")
+Dog::Dog( void ) : Animal()
 {
     std::cout << "DEFAULT Constructor for Dog 🐶 class called" << std::endl;
+    this->type = "Dog";
     return ;
 }
 
-Dog::Dog( const Dog& copy )
+Dog::Dog( const Dog& copy ) : Animal()
 {
     std::cout << "COPY Constructor for Dog 🐶 class called" << std::endl;
-    *this = copy;
+    this->type = copy.type;
     return ;
 }
 
@@ -35,11 +36,6 @@ Dog::~Dog( void )
 {
     std::cout << "DESTRUCTOR for Dog 🐶 class called" << std::endl;
     return ;
-}
-
-std::string    Dog::getType( void ) const
-{
-    return this->type;
 }
 
 void    Dog::makeSound( void ) const

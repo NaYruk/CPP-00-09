@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 10:11:51 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 19:27:52 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:36:01 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,38 +30,55 @@ Character::Character( const std::string name ) : _name(name)
 	return ;
 }
 
-Character::Character( const Character& copy )
+Character::Character( const Character& copy ) : _name(copy._name)
 {
-	*this = copy;
+    for (int i = 0; i < 4; i++)
+        this->inventory[i] = NULL;
+    for (int i = 0; i < 1000; i++)
+        this->ground_materia[i] = NULL;
+    
+    for (int i = 0; i < 4; i++)
+    {
+        if (copy.inventory[i] != NULL)
+            this->inventory[i] = copy.inventory[i]->clone();
+    }
+    for (int i = 0; i < 1000; i++)
+    {
+        if (copy.ground_materia[i] != NULL)
+            this->ground_materia[i] = copy.ground_materia[i]->clone();
+    }
 	return ;
 }
 
 Character&	Character::operator=( const Character& copy )
 {
-	this->_name = copy._name;
-
-	for (int i = 0; i < 4; i++)
+	if (this != &copy)
 	{
-		if (this->inventory[i] != NULL)
+		this->_name = copy._name;
+	
+		for (int i = 0; i < 4; i++)
 		{
-			delete this->inventory[i];
-			this->inventory[i] = NULL;
+			if (this->inventory[i] != NULL)
+			{
+				delete this->inventory[i];
+				this->inventory[i] = NULL;
+			}
+			
+			if (copy.inventory[i] != NULL)
+				this->inventory[i] = copy.inventory[i]->clone();
 		}
 		
-		if (copy.inventory[i] != NULL)
-			this->inventory[i] = copy.inventory[i]->clone();
-	}
 	
-
-	for (int i = 0; i < 1000; i++)
-	{
-		if (this->ground_materia[i] != NULL)
+		for (int i = 0; i < 1000; i++)
 		{
-			delete this->ground_materia[i];
-			this->ground_materia[i] = NULL;
+			if (this->ground_materia[i] != NULL)
+			{
+				delete this->ground_materia[i];
+				this->ground_materia[i] = NULL;
+			}
+			if (copy.ground_materia[i] != NULL)
+				this->ground_materia[i] = copy.ground_materia[i]->clone();
 		}
-		if (copy.ground_materia[i] != NULL)
-			this->ground_materia[i] = copy.ground_materia[i]->clone();
 	}
 	return *this;
 }
@@ -114,6 +131,11 @@ void	Character::equip(AMateria* m)
 
 void	Character::unequip(int idx)
 {
+	if (idx < 0 || idx > 3)
+    {
+        std::cout << "Invalid index!" << std::endl;
+        return;
+    }
 	if (this->inventory[idx] != NULL)
 	{
 		for (int i = 0; i < 1000; i++)
@@ -128,12 +150,14 @@ void	Character::unequip(int idx)
 		}
 		std::cout << "The ground is full of materials, you can't put any more down" << std::endl;
 	}
+	else if (this->inventory[idx] == NULL)
+		std::cout << "The emplacement : " << idx << " is empty." << std::endl;
 	return ;
 }
 
 void	Character::use(int idx, ICharacter& target)
 {
-	if (idx > 3)
+	if (idx > 3 || idx < 0)
 	{
 		std::cout << "A Character have only 4 emplacement in their inventory, please select a Good index idx >= 0 && idx <= 3 !" << std::endl;
 		return ;

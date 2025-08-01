@@ -3,32 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 20:35:09 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:41:11 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Dog.hpp"
 
-Dog::Dog( void ) : type("Dog"), brain(new Brain())
+Dog::Dog( void ) : Animal(), brain(new Brain())
 {
     std::cout << "DEFAULT Constructor for Dog 🐶 class called" << std::endl;
+    this->type = "Dog";
     return ;
 }
 
-Dog::Dog( const Dog& copy )
+Dog::Dog( const Dog& copy ) : Animal()
 {
     std::cout << "COPY Constructor for Dog 🐶 class called" << std::endl;
-    this->brain = new Brain();
+    this->brain = new Brain(*copy.brain);
     this->type = copy.type;
     return ;
 }
 
 Dog& Dog::operator=( const Dog& copy )
 {
-    this->type = copy.type;
+    if (this != &copy)
+    {
+        delete this->brain;
+        this->brain = new Brain(*copy.brain);
+        this->type = copy.type;
+    }
     return *this;
 }
 
@@ -39,13 +45,20 @@ Dog::~Dog( void )
     return ;
 }
 
-std::string    Dog::getType( void ) const
-{
-    return this->type;
-}
-
 void    Dog::makeSound( void ) const
 {
     std::cout << "🐶 Wooooooooff 🐶" << std::endl;
+    return ;
+}
+
+void    Dog::addIdea(const std::string& line)
+{
+    this->brain->put_ideas(line);
+    return ;
+}
+
+void    Dog::showIdeas( void ) const
+{
+    this->brain->explain_ideas();
     return ;
 }

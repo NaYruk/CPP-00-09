@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 09:36:08 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/16 13:43:04 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:24:54 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ AMateria::AMateria( void ) : _materia_type("Default") {}
 
 AMateria::AMateria( const AMateria& copy )
 {
-	this->_materia_type = copy._materia_type;
+	(void)copy;
 	return ;
 }
 
@@ -24,7 +24,7 @@ AMateria::AMateria( std::string const & type ) : _materia_type(type) {}
 
 AMateria& AMateria::operator=( const AMateria& copy )
 {
-	this->_materia_type = copy._materia_type;
+	(void)copy;
 	return *this;
 }
 

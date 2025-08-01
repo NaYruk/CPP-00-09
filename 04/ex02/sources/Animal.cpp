@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 18:30:37 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:50:34 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Animal::Animal( void ) : type("Default Animal")
 Animal::Animal( const Animal& copy )
 {
     std::cout << "COPY Constructor for animal class called" << std::endl;
-    *this = copy;
+    this->type = copy.type;
     return ;
 }
 
@@ -45,5 +45,17 @@ std::string    Animal::getType( void ) const
 void           Animal::makeSound( void ) const
 {
     std::cout << "Animal Sound" << std::endl;
+    return ;
+}
+
+void Animal::addIdea(const std::string& idea)
+{
+    std::cout << "Basic Animal has no brain to store ideas!" << std::endl;
+    return ;
+}
+
+void Animal::showIdeas(void) const
+{
+    std::cout << "Basic Animal has no ideas to show!" << std::endl;
     return ;
 }

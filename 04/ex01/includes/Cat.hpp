@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
+/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/13 19:55:34 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:20:40 by marcmilliot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ class Cat : public Animal
         Cat( const Cat& copy );
         Cat& operator=( const Cat& copy );
         virtual ~Cat( void );
-
-        std::string    getType( void ) const;
-        void           makeSound( void ) const;   
+        
+        void        makeSound( void ) const;  
+        virtual void        addIdea(const std::string& line);
+        virtual void        showIdeas(void) const;
     
     private:
-        std::string type;
         Brain*      brain;
 };
