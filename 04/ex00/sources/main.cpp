@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/18 13:46:43 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/07/24 16:24:33 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:51:03 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,20 @@ int main( void )
         delete meta;
         delete j;
         delete i; 
+    }
+    
+    {
+        std::cout << std::endl;
+        std::cout << std::endl;
+        std::cout << "Subject Test !" << std::endl;
+        const Animal* meta = new Animal();
+        const Animal* j = new Dog();
+        const Animal* i = new Cat();
+        std::cout << j->getType() << " " << std::endl;
+        std::cout << i->getType() << " " << std::endl;
+        i->makeSound(); //will output the cat sound!
+        j->makeSound();
+        meta->makeSound();
     }
     return 0;   
 }

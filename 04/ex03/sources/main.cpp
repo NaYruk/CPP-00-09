@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 13:24:04 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/01 16:34:01 by marcmilliot      ###   ########.fr       */
+/*   Updated: 2025/08/20 13:11:16 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ int main()
 		tmp = src->createMateria("cure");
 		me->equip(tmp);
 		tmp = src->createMateria("ice");
-		me->equip(tmp);
-		tmp = src->createMateria("cure");
 		me->equip(tmp);
 		
 		me->unequip(0);
