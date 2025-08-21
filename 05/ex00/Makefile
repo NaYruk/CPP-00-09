@@ -5,10 +5,10 @@ SUCCESS = \033[32m✔\033[0m
 CC = c++
 INCLUDES = -I./includes
 FLAGS = -Wall -Wextra -Werror $(INCLUDES) -std=c++98
-SRC = ./sources/main.cpp ./sources/Bureaucrat.cpp ./sources/Form.cpp
+SRC = ./sources/main.cpp ./sources/Bureaucrat.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
-NAME = Form
+NAME = Bureaucrat
 all: $(NAME)
 
 $(NAME): $(OBJ)

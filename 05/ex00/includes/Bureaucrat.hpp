@@ -6,17 +6,14 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:35:23 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/21 19:22:50 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:25:31 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "./Form.hpp"
 #include <iostream>
 #include <exception>
-
-class AForm;
 
 class Bureaucrat
 {
@@ -46,9 +43,6 @@ class Bureaucrat
 		{
 			virtual const char* what() const throw();
 		};
-		
-		//signForm : Try to sign the Formular
-		void	signForm( Form& form );
 	
 	private:
 		const std::string name;

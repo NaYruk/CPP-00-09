@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/20 13:35:25 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/21 19:23:18 by mmilliot         ###   ########.fr       */
+/*   Created: 2025/08/21 19:24:07 by mmilliot          #+#    #+#             */
+/*   Updated: 2025/08/21 19:24:10 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Bureaucrat.hpp"
- 	
-int	main( void )
-{
+#include "./AForm.hpp"
 
-	
-	return 0;
-}
+class	ShrubberyCreationForm : public AForm
+{
+	//Canonical
+	public:
+		ShrubberyCreationForm( void );
+		ShrubberyCreationForm( std::string target );
+		ShrubberyCreationForm( ShrubberyCreationForm& copy );
+		ShrubberyCreationForm&	operator=( ShrubberyCreationForm& copy );
+		~ShrubberyCreationForm( void );
+
+	private:
+		std::string	target;
+};

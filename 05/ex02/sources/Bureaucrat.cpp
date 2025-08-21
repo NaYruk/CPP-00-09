@@ -6,11 +6,15 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:35:20 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/20 19:26:43 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:46:22 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Bureaucrat.hpp"
+
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define RESET "\033[0m"
 
 Bureaucrat::Bureaucrat( void ) : name("Default"), grade(150) {}
 
@@ -88,8 +92,20 @@ std::ostream&	operator<<(std::ostream& os, const Bureaucrat& b)
 }
 
 
-
-void	Bureaucrat::signForm( void )
+//signForm : Try to sign the Formular
+void	Bureaucrat::signForm( Form& form )
 {
-
+	if (form.getIsSigned() == true)
+	{
+		std::cout << GREEN << "The Formular is already signed !" << RESET << std::endl; 
+		return ;
+	}
+		
+	try {
+		form.beSigned(*this);
+		std::cout << GREEN << this->getName() << " signed " << form.getName() << RESET << std::endl;
+	}
+	catch (std::exception& e) {
+		std::cout << RED << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << RESET << std::endl; 
+	}
 }

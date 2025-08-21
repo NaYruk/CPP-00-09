@@ -6,18 +6,22 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:35:23 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/20 18:19:06 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:04:38 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
+#include "./Form.hpp"
 #include <iostream>
 #include <exception>
+
+class Form;
 
 class Bureaucrat
 {
 	public:
+		//Canonical
 		Bureaucrat( void );
 		Bureaucrat( std::string name, int grade );
 		Bureaucrat( const Bureaucrat &copy );
@@ -42,6 +46,9 @@ class Bureaucrat
 		{
 			virtual const char* what() const throw();
 		};
+		
+		//signForm : Try to sign the Formular
+		void	signForm( Form& form );
 	
 	private:
 		const std::string name;
