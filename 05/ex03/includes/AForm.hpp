@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:25:03 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/22 16:11:58 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:24:20 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,4 @@ class AForm
 };
 
 //Overload of << operator
-std::ostream&	operator<<( std::ostream& os, const AForm& AForm );
+std::ostream&	operator<<( std::ostream& os, AForm& AForm );

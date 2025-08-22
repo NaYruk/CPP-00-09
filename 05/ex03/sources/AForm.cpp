@@ -115,13 +115,14 @@ void	AForm::execute( Bureaucrat const & executor ) const
 		throw FormNotSigned();
 	else if (this->_gradeForExec < executor.getGrade())
 		throw NotAllowed();
-	makeAction();
+	else
+		makeAction();
 	return ;
 }
 
 
 //Overload of << operator
-std::ostream&	operator<<( std::ostream& os, const AForm& AForm )
+std::ostream&	operator<<( std::ostream& os, AForm& AForm )
 {
 	if (AForm.getIsSigned() == true)
 	{

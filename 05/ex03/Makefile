@@ -5,10 +5,10 @@ SUCCESS = \033[32m✔\033[0m
 CC = c++
 INCLUDES = -I./includes
 FLAGS = -Wall -Wextra -Werror $(INCLUDES) -std=c++98
-SRC = ./sources/main.cpp ./sources/Bureaucrat.cpp ./sources/AForm.cpp ./sources/ShrubberyCreationForm.cpp ./sources/RobotomyRequestForm.cpp ./sources/PresidentialPardonForm.cpp
+SRC = ./sources/main.cpp ./sources/Bureaucrat.cpp ./sources/AForm.cpp ./sources/ShrubberyCreationForm.cpp ./sources/RobotomyRequestForm.cpp ./sources/PresidentialPardonForm.cpp ./sources/Intern.cpp
 
 OBJ = $(SRC:%.cpp=%.o)
-NAME = DifferentForm
+NAME = Intern
 all: $(NAME)
 
 $(NAME): $(OBJ)

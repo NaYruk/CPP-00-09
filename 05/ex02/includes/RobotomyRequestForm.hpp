@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/21 19:24:07 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/22 16:12:35 by mmilliot         ###   ########.fr       */
+/*   Created: 2025/08/22 11:53:23 by mmilliot          #+#    #+#             */
+/*   Updated: 2025/08/22 16:12:26 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 #pragma once
 
-class	ShrubberyCreationForm : public AForm
+class RobotomyRequestForm : public AForm
 {
 	public:
 		//Canonical
-		ShrubberyCreationForm( void );
-		ShrubberyCreationForm( std::string target );
-		ShrubberyCreationForm( const ShrubberyCreationForm& copy );
-		ShrubberyCreationForm&	operator=( const ShrubberyCreationForm& copy );
-		virtual ~ShrubberyCreationForm( void );
-		
+		RobotomyRequestForm( void );
+		RobotomyRequestForm( std::string target );
+		RobotomyRequestForm( const RobotomyRequestForm& copy );
+		RobotomyRequestForm&	operator=( const RobotomyRequestForm& copy );
+		~RobotomyRequestForm( void );
+	
 		//makeAction : Execute the action of Shrubbery
 		//Execute : Execute the method of AForm
-		virtual void	makeAction( void ) const; 
+		virtual void	makeAction( void ) const;
 		void	execute( Bureaucrat const & executor ) const;
-
+		
 	private:
 		std::string	target;
 };
+

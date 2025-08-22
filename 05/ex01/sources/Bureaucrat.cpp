@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 13:35:20 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/21 18:46:22 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:05:50 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
 // Overload of << operator
 std::ostream&	operator<<(std::ostream& os, const Bureaucrat& b)
 {
-	os << b.getName() << ", bureaucrat grad " << b.getGrade() << ".";
+	os << b.getName() << ", bureaucrat grade " << b.getGrade() << ".";
 	
 	return os;
 }

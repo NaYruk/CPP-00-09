@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 18:25:00 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/21 18:52:25 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:05:33 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,22 @@ void	Form::beSigned( const Bureaucrat& b )
 		
 	if (this->_isSigned == true) // Test Signed Status before signed !
 		std::cout << GREEN << "The Formular is already signed !" << RESET << std::endl;
-	else
-		this->_isSigned = true;
+	this->_isSigned = true;
 	return ;
 }
 
 
 
 //Overload of << operator
-std::ostream&	operator<<( std::ostream& os, Form& form )
+std::ostream&	operator<<( std::ostream& os, const Form& form )
 {
-	os << "Form : " << form.getName() << "\nStatus : " << form.getIsSigned() << "\nGrade for exec : " << form.getGradeExec() << "\nGrade for sign : " << form.getGradeSign() << std::endl;
-	
+	if (form.getIsSigned() == true)
+	{
+		os << "AForm : " << form.getName() << "\nStatus : True" << "\nGrade for exec : " << form.getGradeExec() << "\nGrade for sign : " << form.getGradeSign() << std::endl;
+	}
+	else
+	{
+		os << "AForm : " << form.getName() << "\nStatus : False" << "\nGrade for exec : " << form.getGradeExec() << "\nGrade for sign : " << form.getGradeSign() << std::endl;
+	}	
 	return os;
 }
