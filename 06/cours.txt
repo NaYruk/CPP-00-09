@@ -1,0 +1,197 @@
+IMPLICITE ET EXPLICITE EN C :
+
+En c, on a des convertions implicite sans qu on s'en rende compte.
+int a = 42, double b = a;   ICI on a une convertion implicite d'un int en double.
+
+Convertion explicite : double c = (double) a;      ICI a est un int cast en double.
+
+HIERARCHIE DANS LES TYPES :
+
+CAST IMPLICITE :
+- On peut faire un cast quand le type qu'on veut caster est plus precis, ex : int -> double   BON
+- Mais pas dans l'autre sens, sinon on peut avoir une perte de precision : double -> int   MAUVAIS
+
+SI on veut le faire, il faut faire un cast EXPLICITE, pour le faire perdre en precision consciemment
+int f = (int) b;
+
+
+
+
+REINTERPRETATION :
+
+float	a = 420.042f;
+
+void * b = &a;   // Implicite REINTERPRETATION cast
+void * c = (void *)&a    	//explicite REINTERPRETATION cast
+
+void * d = &a;     // Implicite PROMOTION -> OK
+int  * e = d;      // Implicite DEMOTION -> HAZARDEUX
+int  * f = (int *) d; // Explicite DEMOTION -> OK  FAIRE CA POUR ETRE CLAIR
+
+CE QU IL FAUT RETENIR, A TRAVERS LES TYPES D ADRESSE IL Y A TOUJOURS LES HIERARCHIE,
+VOID * SERA TOUJOURS PLUS PRECIS QUE LES AUTRES TYPES, CAR IL PEUT TOUT CONTENIR.
+DANS LE CAS OU ON VEUT REDESCENDRE EN PRECISION, IL FAUT FAIRE ATTENTION A NE PAS FAIRE N IMPORTE QUOI
+
+
+
+
+
+TYPE QUALIFIER REINTERPRETATION :
+
+int 		a = 42; // REFERENCE VALUE
+
+int const  * b = &a 	// IMPLICITE type QUALIFIER CAST
+int	const  * c = (int const *) &a  // EXPLICITE type QUALIFIER CAST
+
+int const  * d = &a    // IMPLICITE Promotion -> OK
+int * 		 e = d 	   // IMPLICITE DEMOTION -> NOOOOOOO
+int *		 f = (int *) d;    // EXPLICITE DEMOTION -> OK
+
+CE QU IL FAUT RETENIR, A TRAVERS DES TYPES QUALIFIER COMME CONST :
+POUR FAIRE UNE DEMOTION, IL FAUDRA FORCEMENT FAIRE UNE CONVERSION EXPLICITE
+DE TOUTE FACON FAIRE CECI EST DECONSEILLER
+
+
+
+
+UPCAST AND DOWNCAST EN CPP (APPLICATION DES NOTIONS C) NE PAS UTILISER LA SYNTAXE C, SEULEMENT LA SYNTAXE CPP :
+
+class Parent {};
+class Child1: public Parent {};
+class Child2 : public Parent {};
+
+Child1	a;	//REFERENCE Value
+
+Parent *	b = &a		//IMPLICITE REINTERPRETATION CAST
+Parent *	c = (Parent *) &a	//EXPLICITE REINTERPRETATION CAST
+
+Parent	*	d = &a 	//IMPLICITE UPCAST -> OK
+Child1	*	e = d 	 IMPLICITE DOWNCAST -> NO
+Child2	*	f = (Child2 *) d; 		// EXPLICITE DOWNCAST -> OK MAIS MAUVAIS CAR COMPILE MAIS d CONTIENT UNE CHILD1 DONC CONCEQUENCE CATASTROPHIQUE A L EXECUTION !
+
+
+
+
+
+STATIC CAST :
+
+int 	a = 42;		//REFERENCE Value
+
+double	b = a;						// IMPLICITE Promotion -> OK
+int		c = b;						// IMPLICITE DEMOTION -> NO
+int		d = static_cast<int>(b);	//EXPLICITE DEMOTION -> OK
+
+static_cast<int>(b) = JE SOUHAITE FAIRE UN STATIC CAST DE B EN TYPE INT.
+MEME EFFET QUE LE C DANS CE CONTEXTE.
+
+
+class Parent {};
+class Child1: public Parent {};
+class Child2 : public Parent {};
+
+class	Unrelated	{};
+
+
+Child1	*	b = &a;		//REFERENCE Value
+
+Parent	*	b = &a;		//Implicite UPCAST -> OK
+Child1	*	c = b;		//Implicite DOWNCAST -> NO
+Child2	*	d = static_cast<Child2 *>(b) // Explicite DOWNCAST -> OK
+
+Unrelated	*	e = static_cast<Unrelated *>(&a); 	// Explicite Convertion -> NO
+
+UNREALATED N A RIEN A VOIR AVEC PARENT ET CHILD1 ET 2, EXPLICIT CAST LE VOIS ET NE COMPILE DONC PAS.
+
+
+
+
+
+DYNAMIC CAST : (SEUL CAST AU RUNNTIME (EXECUTION) FONCTIONNE QUE DANS LES CAS DE POLYMORPHISME (VIRTUEL))
+
+class Parent { public: vitrtual ~Parent( void ) {} };
+class Child1: public Parent {};
+class Child2 : public Parent {};
+
+Child *	a;		// REFERENCE Value
+Parent * b = &a 	// Implicite UPCAST -> OK
+
+// Explicit DOWNCAST -> Suspens...
+Child1 *	c = dynamic_cast<Child1 *>(b);
+if ( c == NULL ) {
+	std::cout << "Conversion is not OK" << std::endl;
+}
+else {
+	std::cout << "Conversion is Ok" << std::endl;
+}
+RENVOIE NULL QUAND LE DYNAMIC CAST ECHOUE
+
+
+//Explicit DOWNCAST -> Suspens...
+try {
+	Child2 &	d = dynamic_cast<Child2 &>(*b);
+	std::cout << "Conversion is OK" << std::endl;
+}
+catch (std::bad_cast &bc) {
+	std::cout << "Conversion is NOT OK : " << bc.what() << std::endl;
+	return 0;
+}
+return 0;
+SI ON A UNE REFERENCE, DYNAMIC CAST NE PEUT PAS RENVOYER NULL DONC ON PEUT FAIRE UN TRY CATCH DE TYPE bad_cast
+
+
+
+
+
+
+
+REINTERPRET CAST :
+PERMET DE FORCER UN CAST AU COMPILATEUR, LE COMPILATEUR FERA CONFIANCE AU DEVELOPPEUR ET NE RELEVERA PAS D ERREURS.
+
+float	a = 420.042f; // Reference Value
+
+void * b = &a; //Implicite Promotion
+int *	c = reinterpret_cast<int *>(b); // Explicit Demotion -> OK
+int &	d = reinterpret_cast<int &>(b); // Explicit Demotion -> OK
+
+return 0;
+
+
+
+
+CONST CAST :
+PERMET DE CASTER UN CONST EN VARIABLE NORMAL.
+MAUVAIS UTILISATION TRES MAUVAIS SIGNE SI UTILISATION DU CONST CAST
+
+int	a = 42; // Reference value
+
+int const * b = &a    //Implicite promotion	-> OK
+int	* c = b 			// Implicite Demotion -> NO
+int	* d = 	const_cast<int *>(b); 	// Explicit Demotion -> OK
+
+
+
+
+
+CAST OPERATORS :
+SYNTAXE PERMETTANT DE DEFINIRE AU SEIN DES CLASSES DES OPERATEURS POUR FAIRE DES CONVERSION
+PERMET DE CASTER IMPLICITEMENT SIMPLEMENT, ATTENTION AU PROBLEMES DE COMPREHENSION DU CODE
+
+class Foo {
+	public:
+		Foo ( float const v ) : _v( v ) { }
+
+		float	getV( void )	{ return this->_v }
+
+		operator float()	{ return this->_v }
+		operator int()		{ return static_cast<int>( this->_v ); }
+
+	private:
+		float	_v;
+};
+
+int main()
+{
+	Foo a( 420.024f );
+	float b = a;			// TROUVE L OPERATEUR DANS LA CLASSE
+	int c = a;				// TROUVE L OPERATEUR DANS LA CLASSE ET LE CAST EN INT
+}
