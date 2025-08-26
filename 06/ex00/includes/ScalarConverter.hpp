@@ -6,11 +6,13 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 20:16:42 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/25 20:41:21 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/26 09:58:25 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
+#include <string>
+#include <sstream>
 
 class	ScalarConverter
 {
@@ -20,7 +22,7 @@ class	ScalarConverter
 	
 	private:
 		ScalarConverter( void );
-		ScalarConverter( ScalarConverter& const copy );
-		ScalarConverter& operator=( ScalarConverter& const copy );
+		ScalarConverter( ScalarConverter& copy );
+		ScalarConverter& operator=( ScalarConverter& copy );
 		~ScalarConverter( void );
 };

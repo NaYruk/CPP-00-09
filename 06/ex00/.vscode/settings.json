@@ -1,0 +1,9 @@
+{
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "/home/mmilliot/Stud/CPP/06/ex00",
+			"binaryPath": "/home/mmilliot/Stud/CPP/06/ex00/Conversion",
+			"binaryArgs": ["12"]
+		}
+	]
+}

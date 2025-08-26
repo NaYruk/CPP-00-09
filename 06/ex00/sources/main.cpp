@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 20:32:08 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/25 20:39:27 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/26 10:00:26 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int main( int argc, char **argv )
 		return 1;
 	}
 	
-	ScalarConverter::convert( argv[1] );
+	ScalarConverter::convert( std::string(argv[1]) );
 
 	return 0;
 }
