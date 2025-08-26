@@ -6,13 +6,16 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 20:16:42 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/26 09:58:25 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/26 14:36:42 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <limits>
+#include <cstdlib>
+#include <cerrno>
 
 class	ScalarConverter
 {

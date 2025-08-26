@@ -5,5 +5,8 @@
 			"binaryPath": "/home/mmilliot/Stud/CPP/06/ex00/Conversion",
 			"binaryArgs": ["12"]
 		}
-	]
+	],
+	"files.associations": {
+		"ostream": "cpp"
+	}
 }

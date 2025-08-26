@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcmilliot <marcmilliot@student.42.fr>    +#+  +:+       +#+        */
+/*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 10:11:57 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/01 16:26:53 by marcmilliot      ###   ########.fr       */
+/*   Updated: 2025/08/26 09:25:18 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
