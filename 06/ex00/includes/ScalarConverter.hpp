@@ -16,6 +16,7 @@
 #include <limits>
 #include <cstdlib>
 #include <cerrno>
+#include <cmath>
 
 class	ScalarConverter
 {

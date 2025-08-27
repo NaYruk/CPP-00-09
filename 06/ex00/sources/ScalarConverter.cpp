@@ -16,6 +16,7 @@
 #define GREEN "\033[32m"
 #define RESET "\033[0m"
 
+//Canonical
 ScalarConverter::ScalarConverter( void ) {}	
 
 ScalarConverter::ScalarConverter( ScalarConverter& copy ) { (void)copy; }
@@ -34,6 +35,10 @@ ScalarConverter::~ScalarConverter( void ) {}
 
 
 
+
+
+
+//Enum for differentiate the variables type in the string
 enum Types
 {
 	TYPE_CHAR,
@@ -43,22 +48,30 @@ enum Types
 	UNKNOWN_TYPE
 };
 
+
+
+// ScalarValues contain all utility variables
 struct	ScalarValues
 {
 	int		i;
 	char	c;
 	float	f;
 	double	d;
-	
+
 	bool	impossibleInt;
 	bool	impossibleChar;
 	bool	impossibleFloat;
 	bool	impossibleDouble;
+
+	bool	NonDisplayableChar;
 	
 	bool	except;
 };
 
-static Types	detectType( std::string const & literal )
+
+
+// Function for parse the string and detected the type of variable, if none type is detected return UNKNOW TYPE.
+static Types	detectType( std::string const & literal, bool	*DecimalDetected)
 {
 	if ( literal.length() == 1 && !isdigit(literal[0]) )
 		return TYPE_CHAR;
@@ -75,7 +88,10 @@ static Types	detectType( std::string const & literal )
 			if (literal[i] == '+' || literal[i] == '-')
 				nbSign++;
 			if (literal[i] == '.')
+			{
+				*DecimalDetected = true;
 				nbPoints++;
+			}
 			if (literal[i] == 'f')
 				nbF++;
 		}
@@ -101,26 +117,30 @@ static Types	detectType( std::string const & literal )
 	return UNKNOWN_TYPE;
 }
 
-// Check le nombre de +, -, f, . dans la string
-//check si le + et - est au debut
-//check si le f est a la fin
 
+
+// Function for convert the variables in the 3 others type, and Detected Overflow, Underflow, or the impossibility to print the variable after the cast
 static ScalarValues	parse_litteral( Types type, std::string literal )
 {
 	ScalarValues	Values;
 	
+	Values.NonDisplayableChar = false;
 	Values.impossibleChar = false;
 	Values.impossibleDouble = false;
 	Values.impossibleFloat = false;
 	Values.impossibleInt = false;
 	Values.except = false;
 	
-	// Convert in the origin type of literal string and convert in the 3 other type.
+	char	* pEnd = NULL;
+	errno = 0;
+
+	// Convert in the original type of literal string and convert to the 3 other types.
 	try {
 		switch ( type )
 		{
 			case TYPE_CHAR:
 			{
+				// A char will always fit in an int, double, or float so no check needed here!
 				Values.c = literal[0];
 				Values.d = static_cast<double>(Values.c);
 				Values.i = static_cast<int>(Values.c);
@@ -129,44 +149,85 @@ static ScalarValues	parse_litteral( Types type, std::string literal )
 			}
 			case TYPE_INT:
 			{
-				std::stringstream ss(literal);
+				// Check for overflow, if the entered Int is too large!
+				long int	nbr = std::strtol(literal.c_str(), &pEnd, 10);
+				if (errno == ERANGE || pEnd == literal.c_str())
+					throw std::out_of_range("Overflow detected !");
+				
+				if (nbr < std::numeric_limits<int>::min() || nbr > std::numeric_limits<int>::max())
+					throw std::out_of_range("Overflow detected !");
+				
+				Values.i = static_cast<int>(nbr);
 
-				ss >> Values.i;
-				if (Values.i < 32 || Values.i > 127)
+				// Check if the int is printable as a character, if it is not part of the ascii table, write impossible, otherwise Non displayable!
+				if (Values.i < 0 || Values.i > 177)
 					Values.impossibleChar = true;
+				else if (!std::isprint(Values.i))
+					Values.NonDisplayableChar = true;
 				else
 					Values.c = static_cast<char>(Values.i);
 					
+				// An int always fits in a float or double so no particular check needed.
 				Values.d = static_cast<double>(Values.i);
 				Values.f = static_cast<float>(Values.i);
 				break;
 			}
 			case TYPE_FLOAT:
 			{
-				std::stringstream ss(literal);
+				// Check for overflow, if the entered Float is too large!
+				Values.f = std::strtof(literal.c_str(), &pEnd);
+				if (errno == ERANGE || pEnd == literal.c_str())
+					throw std::out_of_range("Overflow detected !");
+				
 
-				ss >> Values.f;
-				if (Values.f < 32 || Values.f > 127)
+				// Check if the float is printable as a character, if it is not part of the ascii table, write impossible, otherwise Non displayable!
+				if (Values.f < 0 || Values.f > 177)
 					Values.impossibleChar = true;
+				else if (!std::isprint(Values.f))
+					Values.NonDisplayableChar = true;
 				else
 					Values.c = static_cast<char>(Values.f);
-					
-				Values.i = static_cast<int>(Values.f);
+				
+
+				// Check if the float fits in an Int, otherwise say that displaying the Int is impossible!
+				if (Values.f < std::numeric_limits<int>::min() || Values.f > std::numeric_limits<int>::max())				// NE MARCHE PAS POUR L INSTANT
+					Values.impossibleInt = true;
+				else
+					Values.i = static_cast<int>(Values.f);
+
+
+				// A float always fits in a double so no worries about the cast!
 				Values.d = static_cast<double>(Values.f);
 				break;
 			}
 			case TYPE_DOUBLE:
 			{
-				std::stringstream ss(literal);
-				
-				ss >> Values.d;
-				if (Values.d < 32 || Values.d > 127)
+				// Check for overflow, if the entered Double is too large!
+				Values.d = std::strtod(literal.c_str(), &pEnd);
+				if (errno == ERANGE || pEnd == literal.c_str())
+					throw std::out_of_range("Overflow detected !");
+
+
+				// Check if the double is printable as a character, if it is not part of the ascii table, write impossible, otherwise Non displayable!
+				if (Values.d < 0 || Values.d > 177)
 					Values.impossibleChar = true;
+				else if (!std::isprint(Values.d))
+					Values.NonDisplayableChar = true;
 				else
 					Values.c = static_cast<char>(Values.d);
-					
-				Values.i = static_cast<int>(Values.d);
-				Values.f = static_cast<float>(Values.d);
+
+				// Check if the double fits in an Int, otherwise say that displaying the Int is impossible!
+				if (Values.d < std::numeric_limits<int>::min() || Values.d > std::numeric_limits<int>::max())
+					Values.impossibleInt = true;
+				else
+					Values.i = static_cast<int>(Values.d);
+
+
+				// Check if the double fits in a Float, otherwise say that displaying the Float is impossible!
+				if (Values.d > std::numeric_limits<float>::max() || Values.d < -std::numeric_limits<float>::max())
+					Values.impossibleFloat = true;
+				else
+					Values.f = static_cast<float>(Values.d);
 				break;
 			}
 			default:
@@ -183,44 +244,76 @@ static ScalarValues	parse_litteral( Types type, std::string literal )
 	return Values;
 }
 
-static void	printValues( ScalarValues Values )
+
+
+// Function for print the Variables
+static void	printValues( ScalarValues Values, bool DecimalDetected)
 {
+	// If Exception thrown, do nothing
 	if (Values.except == true)
 		return ;
-		
-	if (Values.impossibleChar == false)
-		std::cout << "char: " << Values.c << std::endl;
-	else
-		std::cout << RED << "char : Non displayable" << RESET << std::endl;
 	
+	// Print Char
+	if (Values.impossibleChar == false && Values.NonDisplayableChar == false)
+		std::cout << "char: " << Values.c << std::endl;
+	else if (Values.NonDisplayableChar == true)
+		std::cout << RED << "char : Non displayable" << RESET << std::endl;
+	else
+		std::cout << RED << "char : impossible" << RESET << std::endl;
+	
+
+	//Print Int
 	if (Values.impossibleInt == false)
 		std::cout << "int: " << Values.i << std::endl;
 	else
 		std::cout << RED << "int: impossible" << RESET << std::endl;
 
-	if (Values.impossibleFloat == false)
-		std::cout << "float: " << Values.f << std::endl;
+
+	//Print Float
+	if (Values.impossibleFloat == false && DecimalDetected == true)
+	{
+		if (roundf(Values.f) == Values.f) // if is nbr.0
+			std::cout << "float: " << Values.f << ".0f" << std::endl;
+		else
+			std::cout << "float: " << Values.f << "f" << std::endl;
+	}
+	else if (Values.impossibleFloat == false && DecimalDetected == false)
+		std::cout << "float: " << Values.f << ".0f" << std::endl;
 	else
 		std::cout << RED << "float: impossible" << RESET << std::endl;
 	
-	if (Values.impossibleDouble == false)
-		std::cout << "double: " << Values.d << std::endl;
+
+	//Print Double
+	if (Values.impossibleDouble == false && DecimalDetected == true)
+	{
+		if (round(Values.d) == Values.d)	// if is nbr.0
+			std::cout << "double: " << Values.d << ".0" << std::endl;
+		else
+			std::cout << "double: " << Values.d << std::endl;
+	}
+	else if (Values.impossibleDouble == false && DecimalDetected == false)
+		std::cout << "double: " << Values.d << ".0" << std::endl;	
 	else
 		std::cout << RED << "double: impossible" << RESET << std::endl;
 }
 
+
+
+// Main function for convert the string and do the 4 convertions
 void	ScalarConverter::convert( std::string const & literal )
 {
+	bool	DecimalDetected = false;
+
 	if (literal.empty()) {
 		std::cerr << RED << "The Argument is empty !" << RESET << std::endl;
 		return ;
 	}
 	
-	Types type = detectType( literal );
+	Types type = detectType( literal, &DecimalDetected);
 	
 	ScalarValues Values = parse_litteral( type, literal );
 
-	printValues( Values );
+	printValues( Values, DecimalDetected );
 	
 	return ;
 }

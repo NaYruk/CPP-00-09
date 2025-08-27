@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Conversion",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/06/ex00/Conversion",
+            "args": ["42"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/06/ex00",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "preLaunchTask": "make"
+        }
+    ]
+}
