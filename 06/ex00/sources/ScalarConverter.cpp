@@ -68,7 +68,34 @@ struct	ScalarValues
 	bool	except;
 };
 
-
+bool	pseudoLiterals( std::string const literal )
+{
+	if (literal == "nan" || literal == "nanf")
+	{
+		std::cout << RED << "char: impossible" << RESET << std::endl;
+		std::cout << RED << "int: impossible" << RESET << std::endl;
+		std::cout << RED << "float: nanf" << RESET << std::endl;
+		std::cout << RED << "double: nan" << RESET << std::endl;
+		return true;
+	}
+	else if (literal == "-inf" || literal == "-inff")
+	{
+		std::cout << RED << "char: impossible" << RESET << std::endl;
+		std::cout << RED << "int: impossible" << RESET << std::endl;
+		std::cout << RED << "float: -inff" << RESET << std::endl;
+		std::cout << RED << "double: -inf" << RESET << std::endl;
+		return true;
+	}
+	else if (literal == "+inf" || literal == "+inff")
+	{
+		std::cout << RED << "char: impossible" << RESET << std::endl;
+		std::cout << RED << "int: impossible" << RESET << std::endl;
+		std::cout << RED << "float: +inff" << RESET << std::endl;
+		std::cout << RED << "double: +inf" << RESET << std::endl;
+		return true;
+	}
+	return false;
+}
 
 // Function for parse the string and detected the type of variable, if none type is detected return UNKNOW TYPE.
 static Types	detectType( std::string const & literal, bool	*DecimalDetected)
@@ -190,10 +217,15 @@ static ScalarValues	parse_litteral( Types type, std::string literal )
 				
 
 				// Check if the float fits in an Int, otherwise say that displaying the Int is impossible!
-				if (Values.f < std::numeric_limits<int>::min() || Values.f > std::numeric_limits<int>::max())				// NE MARCHE PAS POUR L INSTANT
+				pEnd = NULL;
+				Values.d = std::strtod(literal.c_str(), &pEnd);
+				if (errno == ERANGE || pEnd == literal.c_str())
+					throw std::out_of_range("Overflow detected !");
+				
+				if (Values.d < std::numeric_limits<int>::min() || Values.d > std::numeric_limits<int>::max())
 					Values.impossibleInt = true;
 				else
-					Values.i = static_cast<int>(Values.f);
+					Values.i = static_cast<int>(Values.d);
 
 
 				// A float always fits in a double so no worries about the cast!
@@ -245,9 +277,32 @@ static ScalarValues	parse_litteral( Types type, std::string literal )
 }
 
 
+static bool	ScientistNotationWith0( std::string const & literal)
+{
+	int	index = 0;
+	for ( int i = index; literal[i] == '0'; i++ ) { index++; }
+
+	int count = 0;
+	while ( literal[index] != '\0' && literal[index] != '.' )
+	{
+		count++;
+		index++;
+	}
+	if ( count > 6 )
+	{
+		index -= count - 1;
+		for ( int i = index; literal[i] == '0'; i++ ) { index++; }
+		if (literal[index] == '\0' || literal[index] == '.')
+			return true;
+		else
+			return false;
+	}
+	else
+		return true;
+}
 
 // Function for print the Variables
-static void	printValues( ScalarValues Values, bool DecimalDetected)
+static void	printValues( ScalarValues Values, bool DecimalDetected, std::string literal )
 {
 	// If Exception thrown, do nothing
 	if (Values.except == true)
@@ -257,9 +312,9 @@ static void	printValues( ScalarValues Values, bool DecimalDetected)
 	if (Values.impossibleChar == false && Values.NonDisplayableChar == false)
 		std::cout << "char: " << Values.c << std::endl;
 	else if (Values.NonDisplayableChar == true)
-		std::cout << RED << "char : Non displayable" << RESET << std::endl;
+		std::cout << RED << "char: Non displayable" << RESET << std::endl;
 	else
-		std::cout << RED << "char : impossible" << RESET << std::endl;
+		std::cout << RED << "char: impossible" << RESET << std::endl;
 	
 
 	//Print Int
@@ -272,13 +327,18 @@ static void	printValues( ScalarValues Values, bool DecimalDetected)
 	//Print Float
 	if (Values.impossibleFloat == false && DecimalDetected == true)
 	{
-		if (roundf(Values.f) == Values.f) // if is nbr.0
+		if (ScientistNotationWith0(literal)) // if is nbr.0
 			std::cout << "float: " << Values.f << ".0f" << std::endl;
 		else
 			std::cout << "float: " << Values.f << "f" << std::endl;
 	}
 	else if (Values.impossibleFloat == false && DecimalDetected == false)
-		std::cout << "float: " << Values.f << ".0f" << std::endl;
+	{
+		if (ScientistNotationWith0(literal) == true)
+			std::cout << "float: " << Values.f << ".0f" << std::endl;
+		else
+			std::cout << "float: " << Values.f << "f" << std::endl;
+	}
 	else
 		std::cout << RED << "float: impossible" << RESET << std::endl;
 	
@@ -286,13 +346,18 @@ static void	printValues( ScalarValues Values, bool DecimalDetected)
 	//Print Double
 	if (Values.impossibleDouble == false && DecimalDetected == true)
 	{
-		if (round(Values.d) == Values.d)	// if is nbr.0
+		if (ScientistNotationWith0(literal))	// if is nbr.0
 			std::cout << "double: " << Values.d << ".0" << std::endl;
 		else
 			std::cout << "double: " << Values.d << std::endl;
 	}
 	else if (Values.impossibleDouble == false && DecimalDetected == false)
-		std::cout << "double: " << Values.d << ".0" << std::endl;	
+	{
+		if (ScientistNotationWith0(literal) == true)
+			std::cout << "double: " << Values.d << ".0" << std::endl;
+		else
+			std::cout << "double: " << Values.d << std::endl;
+	}
 	else
 		std::cout << RED << "double: impossible" << RESET << std::endl;
 }
@@ -309,11 +374,16 @@ void	ScalarConverter::convert( std::string const & literal )
 		return ;
 	}
 	
-	Types type = detectType( literal, &DecimalDetected);
-	
-	ScalarValues Values = parse_litteral( type, literal );
+	ScalarValues Values;
 
-	printValues( Values, DecimalDetected );
+	if (!pseudoLiterals( literal ))
+	{
+		Types type = detectType( literal, &DecimalDetected);
+		
+		Values = parse_litteral( type, literal );
+
+		printValues( Values, DecimalDetected, literal );
+	}
 	
 	return ;
 }
