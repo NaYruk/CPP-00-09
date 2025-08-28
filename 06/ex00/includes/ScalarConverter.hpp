@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/25 20:16:42 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/26 14:36:42 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/28 21:15:06 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <cstdlib>
 #include <cerrno>
 #include <cmath>
+#include <iomanip>
 
 class	ScalarConverter
 {

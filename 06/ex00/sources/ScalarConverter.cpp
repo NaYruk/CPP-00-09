@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 08:54:42 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/26 15:31:30 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/28 21:27:03 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,33 +276,8 @@ static ScalarValues	parse_litteral( Types type, std::string literal )
 	return Values;
 }
 
-
-static bool	ScientistNotationWith0( std::string const & literal)
-{
-	int	index = 0;
-	for ( int i = index; literal[i] == '0'; i++ ) { index++; }
-
-	int count = 0;
-	while ( literal[index] != '\0' && literal[index] != '.' )
-	{
-		count++;
-		index++;
-	}
-	if ( count > 6 )
-	{
-		index -= count - 1;
-		for ( int i = index; literal[i] == '0'; i++ ) { index++; }
-		if (literal[index] == '\0' || literal[index] == '.')
-			return true;
-		else
-			return false;
-	}
-	else
-		return true;
-}
-
 // Function for print the Variables
-static void	printValues( ScalarValues Values, bool DecimalDetected, std::string literal )
+static void	printValues( ScalarValues Values, bool DecimalDetected )
 {
 	// If Exception thrown, do nothing
 	if (Values.except == true)
@@ -324,45 +299,39 @@ static void	printValues( ScalarValues Values, bool DecimalDetected, std::string 
 		std::cout << RED << "int: impossible" << RESET << std::endl;
 
 
-	//Print Float
-	if (Values.impossibleFloat == false && DecimalDetected == true)
+	// Print Float
+	if (Values.impossibleFloat == false)
 	{
-		if (ScientistNotationWith0(literal)) // if is nbr.0
-			std::cout << "float: " << Values.f << ".0f" << std::endl;
+		if (DecimalDetected == true)
+		{
+			if (roundf(Values.f) == Values.f)
+				std::cout << "float: " << Values.f << ".0f" << std::endl;
+			else
+				std::cout << "float: " << Values.f << "f" << std::endl;
+		}
 		else
-			std::cout << "float: " << Values.f << "f" << std::endl;
-	}
-	else if (Values.impossibleFloat == false && DecimalDetected == false)
-	{
-		if (ScientistNotationWith0(literal) == true)
 			std::cout << "float: " << Values.f << ".0f" << std::endl;
-		else
-			std::cout << "float: " << Values.f << "f" << std::endl;
 	}
 	else
-		std::cout << RED << "float: impossible" << RESET << std::endl;
+	    std::cout << RED << "float: impossible" << RESET << std::endl;
 	
-
-	//Print Double
-	if (Values.impossibleDouble == false && DecimalDetected == true)
+		
+	// Print Double
+	if (Values.impossibleDouble == false)
 	{
-		if (ScientistNotationWith0(literal))	// if is nbr.0
-			std::cout << "double: " << Values.d << ".0" << std::endl;
+		if (DecimalDetected == true)
+		{
+			if (roundf(Values.d) == Values.d)
+				std::cout << "double: " << Values.f << ".0" << std::endl;
+			else
+				std::cout << "double: " << Values.f << std::endl;
+		}
 		else
-			std::cout << "double: " << Values.d << std::endl;
-	}
-	else if (Values.impossibleDouble == false && DecimalDetected == false)
-	{
-		if (ScientistNotationWith0(literal) == true)
-			std::cout << "double: " << Values.d << ".0" << std::endl;
-		else
-			std::cout << "double: " << Values.d << std::endl;
+			std::cout << "double: " << Values.f << ".0" << std::endl;
 	}
 	else
 		std::cout << RED << "double: impossible" << RESET << std::endl;
 }
-
-
 
 // Main function for convert the string and do the 4 convertions
 void	ScalarConverter::convert( std::string const & literal )
@@ -382,7 +351,7 @@ void	ScalarConverter::convert( std::string const & literal )
 		
 		Values = parse_litteral( type, literal );
 
-		printValues( Values, DecimalDetected, literal );
+		printValues( Values, DecimalDetected );
 	}
 	
 	return ;
