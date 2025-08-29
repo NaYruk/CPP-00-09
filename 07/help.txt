@@ -1,0 +1,18 @@
+// TEMPLATE = MODELE QUI DIT AU COMPILATEUR DE SE BASER DESSUS
+// Il faut dire au compilateur d'instancier le template !
+
+#include <iostream>
+
+template< typename T >  // Permet de dire que le type T existe.
+
+T const &   max( T const & x, T const & y ) {
+    return ( x >= y ? x : y );
+}
+
+
+
+// Instancier le template :
+std::cout << max<int>(a, b) << std::endl // Explicit instanciation
+
+std::cout << max( a, b ) << std::endl // Implicit instanciation
+
