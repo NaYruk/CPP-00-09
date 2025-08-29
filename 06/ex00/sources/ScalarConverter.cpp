@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 08:54:42 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/28 21:27:03 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/29 16:03:02 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,8 +276,27 @@ static ScalarValues	parse_litteral( Types type, std::string literal )
 	return Values;
 }
 
+
+static bool	IsScientistConversion( std::string literal )
+{
+	int	index = 0;
+	for ( int i = index; literal[i] == '0' || literal[i] == '+' || literal[i] == '-'; i++ ) { index++; }
+
+	int count = 0;
+	while ( literal[index] != '\0' && literal[index] != '.' )
+	{
+		count++;
+		index++;
+	}
+	if ( count > 6 )
+		return true;
+	else
+		return false;
+}
+
+
 // Function for print the Variables
-static void	printValues( ScalarValues Values, bool DecimalDetected )
+static void	printValues( ScalarValues Values, bool DecimalDetected, std::string literal )
 {
 	// If Exception thrown, do nothing
 	if (Values.except == true)
@@ -304,13 +323,15 @@ static void	printValues( ScalarValues Values, bool DecimalDetected )
 	{
 		if (DecimalDetected == true)
 		{
-			if (roundf(Values.f) == Values.f)
+			if (roundf(Values.f) == Values.f && !IsScientistConversion(literal))
 				std::cout << "float: " << Values.f << ".0f" << std::endl;
 			else
 				std::cout << "float: " << Values.f << "f" << std::endl;
 		}
-		else
+		else if (!IsScientistConversion(literal))
 			std::cout << "float: " << Values.f << ".0f" << std::endl;
+		else
+			std::cout << "float: " << Values.f << "f" << std::endl;
 	}
 	else
 	    std::cout << RED << "float: impossible" << RESET << std::endl;
@@ -321,13 +342,15 @@ static void	printValues( ScalarValues Values, bool DecimalDetected )
 	{
 		if (DecimalDetected == true)
 		{
-			if (roundf(Values.d) == Values.d)
+			if (roundf(Values.d) == Values.d && !IsScientistConversion(literal))
 				std::cout << "double: " << Values.f << ".0" << std::endl;
 			else
 				std::cout << "double: " << Values.f << std::endl;
 		}
-		else
+		else if (!IsScientistConversion(literal))
 			std::cout << "double: " << Values.f << ".0" << std::endl;
+		else
+			std::cout << "double: " << Values.f << std::endl;
 	}
 	else
 		std::cout << RED << "double: impossible" << RESET << std::endl;
@@ -351,7 +374,7 @@ void	ScalarConverter::convert( std::string const & literal )
 		
 		Values = parse_litteral( type, literal );
 
-		printValues( Values, DecimalDetected );
+		printValues( Values, DecimalDetected, literal );
 	}
 	
 	return ;
