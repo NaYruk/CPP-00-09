@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 19:36:16 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/31 13:41:48 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/08/31 15:13:51 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int main( void )
     catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
-
-    
     
     return 0;
 }
