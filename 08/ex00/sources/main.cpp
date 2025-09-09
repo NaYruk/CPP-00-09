@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 17:35:55 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/31 22:07:51 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/09/08 18:58:08 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int main( void )
         std::cout << e.what() << std::endl;
     }
     
-
 
 
     std::cout << GREEN "\n\n\nTRY WITH AN CONTAINER VECTOR OF INT" RESET << std::endl;

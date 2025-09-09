@@ -14,7 +14,7 @@ SRC = ./sources/main.cpp ./sources/Span.cpp
 OBJ = $(SRC:%.cpp=%.o)
 
 # Target
-NAME = Templates
+NAME = Span
 
 all: $(NAME)
 

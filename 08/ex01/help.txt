@@ -1,0 +1,12 @@
+Concept de gestion de séquence bornée et de calcul de distances
+
+Span est une classe qui encapsule un conteneur dynamique (ici un std::vector) avec une capacité maximale fixée à la construction.
+L’objectif est de pouvoir ajouter des éléments un par un (addNumber) ou en masse via une plage d’itérateurs (addRange), tout en respectant la limite de taille.
+
+La classe propose ensuite deux fonctionnalités principales :
+
+Calculer la plus petite distance (span) entre deux éléments du conteneur (shortestSpan)
+Calculer la plus grande distance (longestSpan)
+Si on essaie d’ajouter trop d’éléments ou de calculer un span avec trop peu d’éléments, la classe lance une exception.
+
+L’exercice montre l’intérêt d’utiliser les algorithmes et itérateurs de la STL pour écrire du code générique, efficace et réutilisable, et d’encapsuler la gestion des erreurs pour garantir la robustesse de la classe.

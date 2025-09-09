@@ -1,0 +1,14 @@
+Concept de conteneur sous-jaccent
+
+stack est un conteneur adaptateur de type FIFO,
+en gros les conteneur adaptateur se base sur d autre conteneur, mais limite leur utilisation
+a des methodes propre a l'adaptateur
+
+EXEMPLE : stack de base est un adaptateur de deque
+va faire en sorte que deque a des methode uniquement pour gerer des classe :
+Permet que de inserer des elements et de les retirer a partir du top de la stack.
+
+Dans l'exercice on nous demande d'ajouter les options d'iterateur qui sont abscent dans les conteneur adaptateur.
+On se base donc sur le conteneur sous jaccent et on va chercher leurs methodes d'iterateurs pour le faire.
+le conteneur stack utilise donc les methodes du conteneur sous jacent pour utiliser les iterateurs tout en
+gardant les fonctionnaliter uniques de stack.

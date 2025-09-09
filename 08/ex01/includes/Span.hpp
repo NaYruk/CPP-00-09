@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 22:09:17 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/08/31 22:47:13 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/09/09 04:26:02 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 #include <iostream>
 #include <vector>
+#include <limits>
+#include <ctime>
+#include <algorithm>
 
 class Span 
 {
@@ -28,6 +31,10 @@ class Span
         //AddNumber Function : Add a single number to the Span
         void    addNumber( int const toAdd );
 
+        //AddNumberRange : Add a Range of number to the Span
+        void    addRange( std::vector<int>::iterator first, std::vector<int>::iterator last );
+
+        
         //shortestSpan Function : Find out the shortest span(distance) between all the numbers stored !
         int     shortestSpan( void ) const;
         
@@ -36,6 +43,7 @@ class Span
          
         //Utils for print the container
         void    printSpan( void );
+        
     private:
         std::vector<int> _VecSpan;
         unsigned int     _sizeMax;

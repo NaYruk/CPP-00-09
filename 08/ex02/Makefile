@@ -8,13 +8,13 @@ CPPFLAGS = -I./includes
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g3
 
 # Sources
-SRC = 
+SRC = ./sources/main.cpp
 
 # Objects
 OBJ = $(SRC:%.cpp=%.o)
 
 # Target
-NAME = Templates
+NAME = MutantStack
 
 all: $(NAME)
 
