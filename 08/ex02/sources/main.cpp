@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/09 01:58:17 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/09/09 03:47:06 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/09/15 12:34:44 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int main()
     {
         //My TESTS : Underlying container is LIST
         std::cout << "\n\nMy TEST : Underlying container is LIST\n" << std::endl;
-        MutantStack<char, std::list<char> > mstack;
+        MutantStack<char> mstack;
 
         mstack.push('a');
         mstack.push('b');
@@ -66,8 +66,8 @@ int main()
         mstack.push('d');
         mstack.push('e');
                 
-        MutantStack<int, std::list<char> >::iterator it = mstack.begin();
-        MutantStack<int, std::list<char> >::iterator ite = mstack.end();
+        MutantStack<char>::iterator it = mstack.begin();
+        MutantStack<char>::iterator ite = mstack.end();
 
         while (it != ite)
         {

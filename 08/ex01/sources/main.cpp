@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 22:09:20 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/09/09 04:29:42 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/09/15 12:04:53 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int main( void )
     
 
 
-    std::cout << "\nTEST WITH 10 NUMBERS !" << std::endl;
+    std::cout << "\nTEST WITH 5 NUMBERS !" << std::endl;
     Span sp5 = Span(5);
 
     try {
