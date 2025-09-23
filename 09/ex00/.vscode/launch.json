@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug btc",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/btc",
+            "args": ["test.txt"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "lldb",
+            "preLaunchTask": "build"
+        }
+    ]
+}
