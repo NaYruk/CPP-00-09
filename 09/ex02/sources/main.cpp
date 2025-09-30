@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 16:53:11 by marcmilliot       #+#    #+#             */
-/*   Updated: 2025/09/24 18:52:02 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/09/30 20:16:47 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static bool    argsValids(int argc, char ** argv)
     {
         for (size_t j = 0; argv[i][j] != '\0'; j++) {
             if (!std::isdigit(argv[i][j])) {
-                std::cerr << RED "Not all arguments are numbers / positive numbers : " << argv[i] << RESET << std::endl;      
-                return false; 
+                std::cerr << RED "Not all arguments are numbers / positive numbers : " << argv[i] << RESET << std::endl;
+                return false;
             }
         }
         errno = 0;
@@ -33,7 +33,7 @@ static bool    argsValids(int argc, char ** argv)
             std::cerr << RED "Overflow detected, the number is not an INT : " << argv[i] << RESET << std::endl;
             return false;
         }
-        else if (longArg < 1) {
+        else if (longArg < 0) {
             std::cerr << RED "Not all arguments is positive numbers : " << argv[i] << RESET << std::endl;
             return false;
         }
@@ -49,6 +49,7 @@ int main(int argc, char ** argv)
     try {
         PmergeMe sorter;
         sorter.sortWithVector(argv);
+        std::cout << std::endl;
         sorter.sortWithDeque(argv);
     }
     catch(std::exception & e) {
