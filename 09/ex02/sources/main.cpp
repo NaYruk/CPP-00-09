@@ -49,7 +49,6 @@ int main(int argc, char ** argv)
     try {
         PmergeMe sorter;
         sorter.sortWithVector(argv);
-        std::cout << std::endl;
         sorter.sortWithDeque(argv);
     }
     catch(std::exception & e) {

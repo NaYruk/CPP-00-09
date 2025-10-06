@@ -6,14 +6,14 @@
 /*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/23 16:53:11 by marcmilliot       #+#    #+#             */
-/*   Updated: 2025/09/30 20:18:27 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/10/06 20:13:26 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/PmergeMe.hpp"
 
 // ============== CANONICAL ==============
-PmergeMe::PmergeMe( void ) {}
+PmergeMe::PmergeMe( void ) : _firstSort(true) {}
 
 PmergeMe::PmergeMe( PmergeMe const & copy )
 {
@@ -25,6 +25,7 @@ PmergeMe &   PmergeMe::operator=( PmergeMe const & copy )
 {
     this->_vecContainer = copy._vecContainer;
     this->_dequeContainer = copy._dequeContainer;
+    this->_firstSort = copy._firstSort;
     return *this;
 }
 
@@ -39,13 +40,19 @@ void    PmergeMe::sortWithVector(char ** toSort)
         return ;
 
     timeval start, end;
-    gettimeofday(&start, NULL); // Start the count of time for Vector container
-    
-    printVectorContainer(PRINT_BEFORE); // Print the stack Before Algo
-    doFordJohnsonVector(this->_vecContainer);
-    printVectorContainer(PRINT_AFTER); // Print the stack After Algo
 
+    if (_firstSort)
+        printVectorContainer(PRINT_BEFORE); // Print the stack Before Algo
+
+    gettimeofday(&start, NULL); // Start the count of time for Vector container
+    doFordJohnsonVector(this->_vecContainer);
     gettimeofday(&end, NULL); // End the count of time for Vector container
+
+    if (_firstSort) {
+        printVectorContainer(PRINT_AFTER); // Print the stack After Algo
+        _firstSort = false;
+    }
+
     printTimeElapsed(start, end, VECTOR_CONTAINER, this->_vecContainer.size()); // Print the Time Elapsed between the start / end of the Algorithm
     return;
 }
@@ -58,12 +65,9 @@ void    PmergeMe::sortWithDeque(char ** toSort)
 
     timeval start, end;
     gettimeofday(&start, NULL); // Start the count of time for Deque container
-
-    printDequeContainer(PRINT_BEFORE); // Print the stack Before Algo
     doFordJohnsonDeque(this->_dequeContainer);
-    printDequeContainer(PRINT_AFTER); // Print the stack After Algo
-    
     gettimeofday(&end, NULL); // End the count of time for Deque container
+
     printTimeElapsed(start, end, DEQUE_CONTAINER, this->_dequeContainer.size()); // Print the Time Elapsed between the start / end of the Algorithm
     return;
 }
@@ -93,17 +97,21 @@ void    PmergeMe::printVectorContainer( int status )
     {
         std::cout << "Before: ";
         for (size_t i = 0; i < this->_vecContainer.size(); i++) {
-            std::cout << this->_vecContainer[i] << " ";
+            std::cout << this->_vecContainer[i];
+            if (i < this->_vecContainer.size() - 1)
+                std::cout << " ";
         }
-        std::cout << "\n" << std::endl;
+        std::cout << std::endl;
     }
     else if (status == PRINT_AFTER)
     {
-        std::cout << "After Vector: ";
+        std::cout << "After:  ";
         for (size_t i = 0; i < this->_vecContainer.size(); i++) {
-            std::cout << GREEN <<  this->_vecContainer[i] << " ";
+            std::cout << this->_vecContainer[i];
+            if (i < this->_vecContainer.size() - 1)
+                std::cout << " ";
         }
-        std::cout << RESET << std::endl;
+        std::cout << std::endl;
     }
     return ;
 }
@@ -128,34 +136,46 @@ static std::vector<int> GetJacobstahlSequenceVector(size_t pendingCount)
 
 std::vector<int>    PmergeMe::JacobstahlInsertionOrderVector(size_t pendingCount)
 {
+    if (pendingCount == 0)
+        return std::vector<int>();
+
     std::vector<int> JacobstahlSequence = GetJacobstahlSequenceVector(pendingCount);
     std::vector<int> InsertionOrder;
+    std::vector<bool> inserted(pendingCount, false);
+
     size_t i = 3;
-    if (JacobstahlSequence.back() > 1)
+    // Add Jacobsthal numbers and fill gaps between them
+    while (i < JacobstahlSequence.size() && static_cast<size_t>(JacobstahlSequence[i]) < pendingCount)
     {
-        for (; i < JacobstahlSequence.size() && JacobstahlSequence[i] < static_cast<int>(pendingCount); i++)
+        size_t jacobsthalIdx = JacobstahlSequence[i];
+        size_t prevJacobsthalIdx = JacobstahlSequence[i - 1];
+
+        // Insert from jacobsthalIdx down to prevJacobsthalIdx + 1
+        for (size_t idx = jacobsthalIdx; idx > prevJacobsthalIdx; idx--)
         {
-            InsertionOrder.push_back(JacobstahlSequence[i]);
-            while (InsertionOrder.back() > JacobstahlSequence[i - 1] + 1)
-            {
-                InsertionOrder.push_back(InsertionOrder.back() - 1);
+            if (!inserted[idx]) {
+                InsertionOrder.push_back(idx);
+                inserted[idx] = true;
             }
         }
+        i++;
     }
-    size_t add = 1;
-    while (InsertionOrder.size() + 1 < pendingCount)
+
+    // Fill any remaining indices not yet inserted
+    for (size_t idx = 0; idx < pendingCount; idx++)
     {
-        InsertionOrder.push_back(JacobstahlSequence.back() + add);
-        add++;
+        if (!inserted[idx])
+            InsertionOrder.push_back(idx);
     }
+
     return InsertionOrder;
 }
 
-void    PmergeMe::insertBinaryVector(std::vector<int>& vec, int value)
+void    PmergeMe::insertBinaryVector(std::vector<int>& vec, int value, size_t maxPos)
 {
     int left = 0;
-    int right = vec.size();
-    
+    int right = maxPos;
+
     while (left < right) {
         int mid = left + (right - left) / 2;
         if (vec[mid] < value) {
@@ -169,15 +189,17 @@ void    PmergeMe::insertBinaryVector(std::vector<int>& vec, int value)
 
 void    PmergeMe::doFordJohnsonVector( std::vector<int> & vecC )
 {
+    if (vecC.size() <= 1)
+        return;
+
     // Conserv the Odd element
     int OddNbr = NO_ODD;
     if (vecC.size() % 2 != 0) {
         OddNbr = vecC.back();
         vecC.pop_back();
     }
-    
-    
-    // Step 1 : Makes pairs and sort the nbr in pairs : [b, a]  b = lowest, a = highest NBR 
+
+    // Step 1 : Makes pairs and sort the nbr in pairs : [smaller, larger]
     std::vector<std::pair<int, int> > pairs;
     for (size_t i = 0; i < vecC.size(); i += 2)
     {
@@ -185,45 +207,60 @@ void    PmergeMe::doFordJohnsonVector( std::vector<int> & vecC )
         int second = vecC[i + 1];
         if (first > second)
             std::swap(first, second);
-        pairs.push_back(std::make_pair(first, second)); // Make a pair : [b, a]  b = lowest, a = highest NBR 
+        pairs.push_back(std::make_pair(first, second));
     }
-    
-    
-    // Step 2 : New Vectors for stock the highest and lowest nbr in each pairs (b, a) and sort recursivly the biggests numbers
-    std::vector<int> largestNumbers;
-    std::vector<int> lowestNumbers;
 
+    // Step 2 : Recursively sort by larger elements
+    std::vector<int> largerElements;
     for (size_t i = 0; i < pairs.size(); i++) {
-        largestNumbers.push_back(pairs[i].second);
-        lowestNumbers.push_back(pairs[i].first);
+        largerElements.push_back(pairs[i].second);
     }
-    if (largestNumbers.size() > 1)
-        doFordJohnsonVector(largestNumbers);
-    
-        
-    // Step 3 : Construct the final chain with the first element of pend (lowestNumbers), add the main(largestNumbers)
-    // and insert with the Jacobstahl sequences the rest of pend (lowestNumbers) by binary search if an ODD element exist insert him at last.
-    vecC.clear();
 
-    if (lowestNumbers.size() >= 1)
-        vecC.push_back(lowestNumbers[0]); // add the first element of pend (lowestNumbers)
-    for (size_t i = 0; i < largestNumbers.size(); i++) {
-        vecC.push_back(largestNumbers[i]); // add the main(largestNumbers)
-    }
-    
-    if (lowestNumbers.size() > 1)
-    {
-        size_t pendingCount = lowestNumbers.size() - 1; // - 1 because of the first element of pend is automaticly add.
-        std::vector<int> insertionOrder = JacobstahlInsertionOrderVector(pendingCount); // Get the Jacobstahl Insertion Order, if lowestNumbers = 6 : JIO = [3,2,5,4,6]
-        for (size_t i = 0; i < insertionOrder.size(); i++)
-        {
-            int index = insertionOrder[i];
-            insertBinaryVector(vecC, lowestNumbers[index]); // Insert with Binary search the lowestNumber in the final stack, by follow the Jacobstahl sequence
+    if (largerElements.size() > 1)
+        doFordJohnsonVector(largerElements);
+
+    // Reorder pairs to match sorted larger elements
+    std::vector<std::pair<int, int> > sortedPairs;
+    for (size_t i = 0; i < largerElements.size(); i++) {
+        for (size_t j = 0; j < pairs.size(); j++) {
+            if (pairs[j].second == largerElements[i]) {
+                sortedPairs.push_back(pairs[j]);
+                break;
+            }
         }
     }
-    
+    pairs = sortedPairs;
+
+    // Step 3 : Build result - start with first smaller element and all larger elements (sorted)
+    vecC.clear();
+    vecC.push_back(pairs[0].first);
+    for (size_t i = 0; i < largerElements.size(); i++) {
+        vecC.push_back(largerElements[i]);
+    }
+
+    // Step 4 : Insert remaining smaller elements using Jacobsthal order
+    if (pairs.size() > 1)
+    {
+        std::vector<int> jacobsthalOrder = JacobstahlInsertionOrderVector(pairs.size() - 1);
+        for (size_t i = 0; i < jacobsthalOrder.size(); i++)
+        {
+            size_t pairIndex = jacobsthalOrder[i];
+            int valueToInsert = pairs[pairIndex + 1].first;
+
+            // Find the position of the corresponding larger element
+            size_t maxSearchPos = 0;
+            for (size_t j = 0; j < vecC.size(); j++) {
+                if (vecC[j] == pairs[pairIndex + 1].second) {
+                    maxSearchPos = j + 1;
+                    break;
+                }
+            }
+            insertBinaryVector(vecC, valueToInsert, maxSearchPos);
+        }
+    }
+
     if (OddNbr != NO_ODD)
-        insertBinaryVector(vecC, OddNbr); // Insert with Binary search the Odd number if he exist
+        insertBinaryVector(vecC, OddNbr, vecC.size());
     return ;
 }
 
@@ -290,34 +327,46 @@ static std::deque<int> GetJacobstahlSequenceDeque(size_t pendingCount)
 
 std::deque<int>    PmergeMe::JacobstahlInsertionOrderDeque(size_t pendingCount)
 {
+    if (pendingCount == 0)
+        return std::deque<int>();
+
     std::deque<int> JacobstahlSequence = GetJacobstahlSequenceDeque(pendingCount);
     std::deque<int> InsertionOrder;
+    std::vector<bool> inserted(pendingCount, false);
+
     size_t i = 3;
-    if (JacobstahlSequence.back() > 1)
+    // Add Jacobsthal numbers and fill gaps between them
+    while (i < JacobstahlSequence.size() && static_cast<size_t>(JacobstahlSequence[i]) < pendingCount)
     {
-        for (; i < JacobstahlSequence.size() && JacobstahlSequence[i] < static_cast<int>(pendingCount); i++)
+        size_t jacobsthalIdx = JacobstahlSequence[i];
+        size_t prevJacobsthalIdx = JacobstahlSequence[i - 1];
+
+        // Insert from jacobsthalIdx down to prevJacobsthalIdx + 1
+        for (size_t idx = jacobsthalIdx; idx > prevJacobsthalIdx; idx--)
         {
-            InsertionOrder.push_back(JacobstahlSequence[i]);
-            while (InsertionOrder.back() > JacobstahlSequence[i - 1] + 1)
-            {
-                InsertionOrder.push_back(InsertionOrder.back() - 1);
+            if (!inserted[idx]) {
+                InsertionOrder.push_back(idx);
+                inserted[idx] = true;
             }
         }
+        i++;
     }
-    size_t add = 1;
-    while (InsertionOrder.size() + 1 < pendingCount)
+
+    // Fill any remaining indices not yet inserted
+    for (size_t idx = 0; idx < pendingCount; idx++)
     {
-        InsertionOrder.push_back(JacobstahlSequence.back() + add);
-        add++;
+        if (!inserted[idx])
+            InsertionOrder.push_back(idx);
     }
+
     return InsertionOrder;
 }
 
-void    PmergeMe::insertBinaryDeque(std::deque<int>& deque, int value)
+void    PmergeMe::insertBinaryDeque(std::deque<int>& deque, int value, size_t maxPos)
 {
     int left = 0;
-    int right = deque.size();
-    
+    int right = maxPos;
+
     while (left < right) {
         int mid = left + (right - left) / 2;
         if (deque[mid] < value) {
@@ -331,15 +380,17 @@ void    PmergeMe::insertBinaryDeque(std::deque<int>& deque, int value)
 
 void    PmergeMe::doFordJohnsonDeque( std::deque<int> & dequeC )
 {
+    if (dequeC.size() <= 1)
+        return;
+
     // Conserv the Odd element
     int OddNbr = NO_ODD;
     if (dequeC.size() % 2 != 0) {
         OddNbr = dequeC.back();
         dequeC.pop_back();
     }
-    
-    
-    // Step 1 : Makes pairs and sort the nbr in pairs : [b, a]  b = lowest, a = highest NBR 
+
+    // Step 1 : Makes pairs and sort the nbr in pairs : [smaller, larger]
     std::deque<std::pair<int, int> > pairs;
     for (size_t i = 0; i < dequeC.size(); i += 2)
     {
@@ -347,45 +398,61 @@ void    PmergeMe::doFordJohnsonDeque( std::deque<int> & dequeC )
         int second = dequeC[i + 1];
         if (first > second)
             std::swap(first, second);
-        pairs.push_back(std::make_pair(first, second)); // Make a pair : [b, a]  b = lowest, a = highest NBR 
+        pairs.push_back(std::make_pair(first, second));
     }
-    
-    
-    // Step 2 : New Deques for stock the highest and lowest nbr in each pairs (b, a) and sort recursivly the biggests numbers
-    std::deque<int> largestNumbers;
-    std::deque<int> lowestNumbers;
 
+    // Step 2 : Recursively sort by larger elements
+    std::deque<int> largerElements;
     for (size_t i = 0; i < pairs.size(); i++) {
-        largestNumbers.push_back(pairs[i].second);
-        lowestNumbers.push_back(pairs[i].first);
+        largerElements.push_back(pairs[i].second);
     }
-    if (largestNumbers.size() > 1)
-        doFordJohnsonDeque(largestNumbers);
-    
-        
-    // Step 3 : Construct the final chain with the first element of pend (lowestNumbers), add the main(largestNumbers)
-    // and insert with the Jacobstahl sequences the rest of pend (lowestNumbers) by binary search if an ODD element exist insert him at last.
-    dequeC.clear();
 
-    if (lowestNumbers.size() >= 1)
-        dequeC.push_back(lowestNumbers[0]); // add the first element of pend (lowestNumbers)
-    for (size_t i = 0; i < largestNumbers.size(); i++) {
-        dequeC.push_back(largestNumbers[i]); // add the main(largestNumbers)
-    }
-    
-    if (lowestNumbers.size() > 1)
-    {
-        size_t pendingCount = lowestNumbers.size() - 1; // - 1 because of the first element of pend is automaticly add.
-        std::deque<int> insertionOrder = JacobstahlInsertionOrderDeque(pendingCount); // Get the Jacobstahl Insertion Order, if lowestNumbers = 6 : JIO = [3,2,5,4,6]
-        for (size_t i = 0; i < insertionOrder.size(); i++)
-        {
-            int index = insertionOrder[i];
-            insertBinaryDeque(dequeC, lowestNumbers[index]); // Insert with Binary search the lowestNumber in the final stack, by follow the Jacobstahl sequence
+    if (largerElements.size() > 1)
+        doFordJohnsonDeque(largerElements);
+
+    // Reorder pairs to match sorted larger elements
+    std::deque<std::pair<int, int> > sortedPairs;
+    for (size_t i = 0; i < largerElements.size(); i++) {
+        for (size_t j = 0; j < pairs.size(); j++) {
+            if (pairs[j].second == largerElements[i]) {
+                sortedPairs.push_back(pairs[j]);
+                break;
+            }
         }
     }
-    
+    pairs = sortedPairs;
+
+    // Step 3 : Build result - start with first smaller element and all larger elements (sorted)
+    dequeC.clear();
+    dequeC.push_back(pairs[0].first);
+    for (size_t i = 0; i < largerElements.size(); i++) {
+        dequeC.push_back(largerElements[i]);
+    }
+
+    // Step 4 : Insert remaining smaller elements using Jacobsthal order
+    if (pairs.size() > 1)
+    {
+        std::deque<int> jacobsthalOrder = JacobstahlInsertionOrderDeque(pairs.size() - 1);
+        for (size_t i = 0; i < jacobsthalOrder.size(); i++)
+        {
+            size_t pairIndex = jacobsthalOrder[i];
+            int valueToInsert = pairs[pairIndex + 1].first;
+
+            // Find the position of the corresponding larger element
+            size_t maxSearchPos = 0;
+            for (size_t j = 0; j < dequeC.size(); j++) {
+                if (dequeC[j] == pairs[pairIndex + 1].second) {
+                    maxSearchPos = j + 1;
+                    break;
+                }
+            }
+
+            insertBinaryDeque(dequeC, valueToInsert, maxSearchPos);
+        }
+    }
+
     if (OddNbr != NO_ODD)
-        insertBinaryDeque(dequeC, OddNbr); // Insert with Binary search the Odd number if he exist
+        insertBinaryDeque(dequeC, OddNbr, dequeC.size());
     return ;
 }
 

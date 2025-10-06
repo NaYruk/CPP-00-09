@@ -32,7 +32,7 @@
 #define DEQUE_CONTAINER 2
 #define SUCCESS 0
 #define ERROR -1
-#define NO_ODD 0
+#define NO_ODD -1
 #define PRINT_BEFORE 1
 #define PRINT_AFTER 2
 
@@ -54,19 +54,20 @@ class PmergeMe
     private:
         std::vector<int>    _vecContainer;
         std::deque<int>     _dequeContainer;
-        
+        bool                _firstSort;
+
         // ============= PRIVATE METHODS FOR VECTOR CONTAINER ===============
         int                 fillVectorContainer(char ** toSort);
         void                printVectorContainer( int status );
         std::vector<int>    JacobstahlInsertionOrderVector(size_t pendingCount);
-        void                insertBinaryVector(std::vector<int>& vec, int value);
+        void                insertBinaryVector(std::vector<int>& vec, int value, size_t maxPos);
         void                doFordJohnsonVector( std::vector<int> & vecC );
 
         // ============= PRIVATE METHODS FOR DEQUE CONTAINER ===============
         int                 fillDequeContainer(char ** toSort);
         void                printDequeContainer( int status );
         std::deque<int>     JacobstahlInsertionOrderDeque(size_t pendingCount);
-        void                insertBinaryDeque(std::deque<int>& deque, int value);
+        void                insertBinaryDeque(std::deque<int>& deque, int value, size_t maxPos);
         void                doFordJohnsonDeque( std::deque<int> & dequeC );
 
         // ============= PRIVATE METHODS FOR ALL CONTAINER ===============
