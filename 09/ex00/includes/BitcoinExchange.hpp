@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 09:07:34 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/09/23 22:47:16 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:45:52 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ class BitcoinExchange
 public:
     // ============== CANONICAL =================
     BitcoinExchange();
-    BitcoinExchange(BitcoinExchange &copy);
-    BitcoinExchange &operator=(BitcoinExchange &copy);
+    BitcoinExchange(const BitcoinExchange &copy);
+    BitcoinExchange &operator=(const BitcoinExchange &copy);
     ~BitcoinExchange();
 
     // ================= PUBLIC INTERFACE ====================

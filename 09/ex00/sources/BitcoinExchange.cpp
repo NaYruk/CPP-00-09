@@ -6,7 +6,7 @@
 /*   By: mmilliot <mmilliot@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 09:07:36 by mmilliot          #+#    #+#             */
-/*   Updated: 2025/09/23 22:48:30 by mmilliot         ###   ########.fr       */
+/*   Updated: 2025/10/08 15:46:01 by mmilliot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 // ============== CANONICAL =================
 BitcoinExchange::BitcoinExchange(void) {}
 
-BitcoinExchange::BitcoinExchange(BitcoinExchange &copy)
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
     *this = copy;
     return;
 }
 
-BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange &copy)
+BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy)
 {
     this->_Database = copy._Database;
     return *this;
